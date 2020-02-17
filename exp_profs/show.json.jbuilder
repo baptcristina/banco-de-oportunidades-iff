@@ -1,0 +1,1 @@
+json.partial! "exp_profs/exp_prof", exp_prof: @exp_prof

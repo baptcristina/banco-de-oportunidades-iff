@@ -1,0 +1,551 @@
+<nav class="navbar navbar-default" role="navigation" id="boxshadow" style="background-color:  #427B3A; height: 75px;" >
+            <div class="navbar-header" style="height: 66px;">
+               <div style="width: 55px;height: 55px; display: block;"> 
+                <span><%= link_to image_tag("BdO rotacionado.png"), page_path('home'), title: 'Página Inicial', class: 'profile-brand hvr-grow', style: "height: 55px; width: 40px"%> <p id="text_shadowed" style="position: absolute; top: 40px;left: 60px;display: none; color: white; text-shadow: 2px 2px #000;font: 150% \"Lucida Sans Unicode\", \"Bitstream Vera Sans\", \"Trebuchet Unicode MS\", \"Lucida Grande\", Verdana, Helvetica, sans-serif;font-size:50px;font-weight:bold;"> Banco de Oportunidades</p></span>
+
+                <script type="text/javascript">
+                  $( window ).resize(function() {
+                    if ($('#login_item').length > 0){
+                    if ($(window).width() < 1201 ){
+document.getElementById("login_item").style.backgroundColor ='#427B3A';
+  }else{
+    document.getElementById("login_item").style.backgroundColor ='transparent';
+  }
+
+    if ($(window).width() < 1201){
+document.getElementById("login_item").style.backgroundColor ='#427B3A';
+  }else{
+    document.getElementById("login_item").style.backgroundColor ='transparent';
+  }
+                  if ($(window).width() < 767){
+                    document.getElementById("text_shadowed").style.display = "block";
+                  }else{
+                     document.getElementById("text_shadowed").style.display = "none";   
+                  }
+                }
+                });
+
+                  $(document).ready(function(){
+                      if($('#login_item').length > 0){
+                     if ($(window).width() < 1201){
+
+document.getElementById("login_item").style.backgroundColor ='#427B3A';
+  }else{
+    document.getElementById("login_item").style.backgroundColor ='transparent';
+  }
+
+    if ($(window).width() < 1201){
+document.getElementById("login_item").style.backgroundColor ='#427B3A';
+  }else{
+    document.getElementById("login_item").style.backgroundColor ='transparent';
+  }
+                  if ($(window).width() < 767){
+                    document.getElementById("text_shadowed").style.display = "block";
+                  }else{
+                     document.getElementById("text_shadowed").style.display = "none";   
+                  }
+                  if ($(window).width() < 767){
+                    document.getElementById("text_shadowed").style.display = "block";
+                  }else{
+                     document.getElementById("text_shadowed").style.display = "none";   
+                  }     }               
+                  });
+                </script>
+              </div> 
+              <div class="pull-right" style="position: absolute; right: 0px; top: 15px;">
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+             </button>
+             </div>
+            </div>
+          <% if admin_signed_in? %>
+          <!-- current_admin.update_attribute :super, true %> Primeira entrada criar super-->
+            <% if current_admin.try(:super?) %><!-- é desenvolvedor?-->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav" id="espaco"><li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li></ul>
+               <ul class="nav navbar-nav" >
+                <li class="dropdown itensmenu">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;" onclick="ItemMenuManter(this)"><span class="fa fa-graduation-cap"></span> Egressos <span class="caret"></span></a>
+                     <ul class="dropdown-menu" role="menu" onmouseenter="ItemMenuManter(this)" onmouseout="ItemMenuDesfazer(this)" >
+                      <li ><%= link_to ' Dados Pessoais', egressos_path %></li>
+                      <li><%= link_to ' Formação Acadêmica',  form_acads_path %></li> 
+                      <li><%= link_to ' Formação Complementar', form_compls_path %></li>
+                      <li><%= link_to ' Experiência Profissional', exp_profs_path %></li>
+                      <li><%= link_to ' Atividades Autônomas', ativ_auts_path %></li>
+                      <li><%= link_to ' Idiomas', idiomas_path %></li>
+                      <li><%= link_to ' Competências Adicionais', compets_path %></li>
+                     </ul>
+                </li> 
+                <li class="dropdown itensmenu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"> <span class="fa fa-briefcase" > </span> Empresas <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu" onmouseenter="ItemMenuManter(this)" onmouseout="ItemMenuDesfazer(this)" >
+                      <li><%= link_to ' Cadastro', empresas_path %></li>
+                      <li><%= link_to ' Oportunidades', oportunidades_path %></li>
+                      <li><%= link_to ' Pesquisa de Profissionais', pesquisa_empresas_path %></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown itensmenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"><span class="fa fa-bar-chart" ></span> Pesquisa Integrada <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">                     
+                  <li><%= link_to 'Consulta Quantitativo de Egressos Importados Respondentes', totais_egressos_import_path('totais_egressos_import') %></li>
+                  <li><%= link_to 'Consulta Questionários de Avaliação de Egressos',  questionario_egressos_path %></li>
+                  <li><%= link_to 'Consulta Gráficos das Questões Objetivas', resultados_parcial_path('resultados_parcial') %></li> 
+                  <li><%= link_to 'Consulta Respostas das Questões Subjetivas', resultados_subjetivo_path('resultados_subjetivo') %></li>
+                   <li><%= link_to 'Consulta Indicadores de Desempenho', resultados_indicadores_path('resultados_indicadores') %></li>                                            
+                  <li><%= link_to 'Gera Relatório em PDF por Data de Colação de Grau', resultados_total_path('resultados_total') %></li>
+                  </ul>
+                  </li>
+
+                <li class="dropdown itensmenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;" onclick="ItemMenuManter(this)"><span class="fa fa-wrench" ></span> Ferramentas  <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="/blazer" > Blazer </a></li>
+                    <li><%= link_to ' Cadastrar Cursos para Exibir no Currículo', titulacaos_path %></li> 
+                    <li><%= link_to ' Cadastrar Cursos do Registro Acadêmico', cursos_path %></li>         
+                    <li><%= link_to ' Cadastrar Ramos de Atividades', ramo_ativs_path %></li>
+                    <li><%= link_to ' Consultar Importações', relatorios_path %></li>
+                    <li><%= link_to ' Enviar Convite de Acesso', primacessos_path %></li>
+                    <li><%= link_to ' Enviar Mensagens de Texto ', lembrete_bdos_path %></li>                        
+                    <li><%= link_to ' Enviar Vagas de Emprego das Redes Sociais ', divulga_avulsas_path %></li>
+                    <li><%= link_to ' Excluir Dados', excluidos_path %></li>          
+                    <li><%= link_to ' Importar Dados',  ferramentas_path %> </li>
+                    <li><%= link_to ' Programar Publicações', divulgacaos_path %></li>
+                    <li><%= link_to ' Registrar Empresas', new_empressa_registration_path %></li>                    
+                    
+                  </ul>
+                </li>
+                <li class="dropdown itensmenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"><span class="fa fa-cogs" ></span> Configurações  <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><%= link_to ' Visualizar Administradores do Sistema',  configuracos_path %></li> 
+                  </ul>  
+                </li>
+                  </ul>
+   <%else%><!-- é admin?-->
+            <%if current_admin.email =="registro@iff.edu.br"%>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav" id="espaco"><li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li></ul>
+               <ul class="nav navbar-nav" id="espaco"><li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li></ul>
+               <ul class="nav navbar-nav ">
+                <li class="dropdown itensmenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"> <span class="fa fa-wrench" ></span> Ferramentas  <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><%= link_to ' Cadastrar Cursos para Exibir no Currículo', titulacaos_path %></li> 
+                    <li><%= link_to ' Cadastrar Cursos do Registro Acadêmico', cursos_path %></li>    
+                    <li><%= link_to ' Importar Egressos',  ferramentas_path %></li> 
+                    <li><%= link_to ' Registros de Importação', relatorios_path %></li>
+                    
+                  </ul>
+                </li>
+            <%else%>
+                  <%if current_admin.email == "agencia@iff.edu.br"%>
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                     <ul class="nav navbar-nav" id="espaco"><li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li></ul>
+                     <ul class="nav navbar-nav">
+                      <li class="dropdown itensmenu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"> <span class="fa fa-users" ></span> Parcerias  <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><%= link_to ' Registrar Empresas',  new_empressa_registration_path %></li> 
+                        </ul>
+                      </li>
+                      <li class="dropdown itensmenu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"> <span class="fa fa-laptop" ></span> Portal  <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><%= link_to ' Programar Publicações',  divulgacaos_path %></li> 
+                        </ul>
+                      </li>
+                       <li class="dropdown itensmenu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"> <span class="fa fa-line-chart" ></span> Consultas <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">       
+                        <li><%= link_to 'Quantitativo de Egressos Importados Respondentes', totais_egressos_import_path('totais_egressos_import') %></li>
+                        <li><%= link_to 'Indicadores de Desempenho', resultados_indicadores_path('resultados_indicadores') %></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown itensmenu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"> <span class="fa fa-bar-chart" ></span> Pesquisa de Egressos <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">       
+                        <li><%= link_to 'Resultado Parcial dos Questionários', resultados_parcial_path('resultados_parcial') %></li>
+                        <li><%= link_to 'Resultado Integral dos Questionários', resultados_total_path('resultados_total') %></li>
+                        </ul>
+                      </li>
+                      <%else%>
+                      <%if current_admin.email == "pesquisador@iff.edu.br"%>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                          <ul class="nav navbar-nav" id="espaco"><li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li></ul>
+                          <ul class="nav navbar-nav">
+                            <li  class="itensmenu"><%= link_to '<i class="fa fa-plus"></i> Novo Questionário'.html_safe, new_questionario_egresso_path(@questionario_egresso, egresso_id: params[:egresso_id]),:method => :post , style: 'color: white'%></li>
+
+                            <li class="dropdown itensmenu">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"><span class="fa fa-search" ></span> Consulta  <span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">                            
+                                <li><%= link_to 'Quantitativo de Egressos Importados Respondentes', totais_egressos_import_path('totais_egressos_import') %></li>
+                                <li><%= link_to 'Questionários de Avaliação de Egressos',  questionario_egressos_path %></li>       
+                                <li><%= link_to 'Gráficos das Questões Objetivas', resultados_parcial_path('resultados_parcial') %></li>
+                                <li><%= link_to 'Respostas das Questões Subjetivas', resultados_subjetivo_path('resultados_subjetivo') %></li>
+                                <li><%= link_to 'Indicadores de Desempenho', resultados_indicadores_path('resultados_indicadores') %></li>                 
+                              </ul>
+
+                          </li>
+                          <li class="dropdown itensmenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"> <span class="fa fa-file-text-o" ></span> Relatório  <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">       
+                            <li><%= link_to 'Por Data de Colação de Grau', resultados_total_path('resultados_total') %></li>
+                            </ul>
+                          </li>
+
+                      <%else%>
+                      <%if current_admin.email == "estudante@iff.edu.br"%>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                          <ul class="nav navbar-nav" id="espaco"><li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li></ul>
+                          <ul class="nav navbar-nav">
+                            <li class="dropdown itensmenu">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"><span class="fa fa-search" ></span> Consulta  <span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">                            
+                                <li><%= link_to 'Quantitativo de Egressos Importados Respondentes', totais_egressos_import_path('totais_egressos_import') %></li>
+                                <li><%= link_to 'Questionários de Avaliação de Egressos',  questionario_egressos_path %></li>       
+                                <li><%= link_to 'Gráficos das Questões Objetivas', resultados_parcial_path('resultados_parcial') %></li>
+                                <li><%= link_to 'Respostas das Questões Subjetivas', resultados_subjetivo_path('resultados_subjetivo') %></li>
+                                <li><%= link_to 'Indicadores de Desempenho', resultados_indicadores_path('resultados_indicadores') %></li>                 
+                              </ul>
+
+                          </li>
+                          <li class="dropdown itensmenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"> <span class="fa fa-file-text-o" ></span> Relatório  <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">       
+                            <li><%= link_to 'Por Data de Colação de Grau', resultados_total_path('resultados_total') %></li>
+                            </ul>
+                          </li>
+
+                  <% else %>
+                  <%if (current_admin.email.include? "coord") || (current_admin.email.include? "dir") %>
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav" id="espaco"><li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li></ul>
+                  <ul class="nav navbar-nav">
+                  <li class="dropdown itensmenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"><span class="fa fa-search" ></span> Consulta  <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                  <%if (current_admin.email.include? "dir") %>
+                    <li><%= link_to 'Quantitativo de Egressos Importados Respondentes', totais_egressos_import_path('totais_egressos_import') %></li>
+                  <% end %>
+                  <li><%= link_to 'Gráficos das Questões Objetivas', resultados_parcial_path('resultados_parcial') %></li>       
+                 <li><%= link_to 'Respostas das Questões Subjetivas', resultados_subjetivo_path('resultados_subjetivo') %></li>          
+                  <li><%= link_to 'Indicadores de Desempenho', resultados_indicadores_path('resultados_indicadores') %></li>    
+                  </ul>
+                  <li class="dropdown itensmenu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"> <span class="fa fa-file-text-o" ></span> Relatório  <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">       
+                  <li><%= link_to 'Por Data de Colação de Grau', resultados_total_path('resultados_total') %></li>
+                  </ul>
+                  </li>
+                              <% end %>
+                      <% end %>
+                      <%end%>
+                  <%end%>
+              <%end%>
+                 <li  class="itensmenu"><%= link_to '<i class="fa fa-envelope-o"></i> Fale Conosco'.html_safe , "/fale_conoscos/new", style: 'color: white;' %> </li>
+            </ul>
+
+          <%end%>
+          <% else %>  
+            <% if user_signed_in? %>  <!-- é egresso? -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav" id="espaco"><li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li></ul>
+               <ul class="nav navbar-nav">       
+                <% if tem_avaliacao == true %>
+                <li class="itensmenu">  
+                <% questionario = QuestionarioEgresso.where(egresso_id: current_user.egresso_id).where(realizado: false).first %>
+                <%= link_to '<i class="fa fa-check-circle"></i> Avaliação'.html_safe ,  edit_questionario_egresso_path( questionario, egresso_id: current_user.egresso_id, form_acad_id: alguma_avaliacao), style: 'color: white;' %> </li></ul>
+                  <%else%>   
+                 <li class="dropdown itensmenu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"><span class="fa fa-graduation-cap"></span> Meu Currículo <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li> <%= link_to "Visualizar Currículo", egresso_path(current_user.egresso_id, egresso_id: current_user.egresso_id) %> 
+                      <li><%= link_to ' Dados Pessoais',   edit_egresso_path(current_user.egresso_id, egresso_id: current_user.egresso_id ) %></li>
+                      <% if  FormAcad.where( :egresso_id => current_user.egresso_id).exists? %>
+                        <li><%= link_to ' Formação Acadêmica',  form_acads_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% else %>
+                        <li><%= link_to ' Formação Acadêmica',  new_form_acad_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% end%>
+                      <% if  FormCompl.where( :egresso_id => current_user.egresso_id).exists? %>
+                        <li><%= link_to ' Formação Complementar',  form_compls_path(@egresso, egresso_id: current_user.egresso_id)%> </li>
+                      <% else %>
+                        <li><%= link_to ' Formação Complementar',  new_form_compl_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% end%>
+                      <% if  ExpProf.where( :egresso_id => current_user.egresso_id).exists? %>
+                        <li><%= link_to ' Experiência Profissional',  exp_profs_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% else %>
+                        <li><%= link_to ' Experiência Profissional',  new_exp_prof_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% end%>
+                      <% if  AtivAut.where( :egresso_id => current_user.egresso_id).exists? %>
+                        <li><%= link_to ' Atividades Autônomas',  ativ_auts_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% else %>
+                        <li><%= link_to ' Atividades Autônomas',  new_ativ_aut_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% end%>   
+                      <% if  Idioma.where( :egresso_id => current_user.egresso_id).exists? %>
+                        <li><%= link_to ' Idiomas',  idiomas_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% else %>
+                        <li><%= link_to ' Idiomas',  new_idioma_path(@egresso, egresso_id: current_user.egresso_id)%> </li>
+                      <% end%>   
+                      <% if  Compet.where( :egresso_id => current_user.egresso_id).exists? %>
+                        <li><%= link_to ' Competências Adicionais',  compets_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% else %>
+                        <li><%= link_to ' Competências Adicionais',  new_compet_path(@egresso, egresso_id: current_user.egresso_id) %> </li>
+                      <% end%>   
+                      </li>
+                    </ul> 
+                  </li>
+
+            <% if tem_oportunidades(current_user.egresso_id) == true %>
+                  <li class="itensmenu"> <%= link_to '<i class="fa fa-search"></i> Oportunidades para mim <span class="badge" style="color: white; background: red;">!</span> '.html_safe , pesquisas_path(egresso_id: current_user.egresso_id), style: 'color: white;' %></li>
+            <%else%>
+                   <li class="itensmenu"> <%= link_to '<i class="fa fa-search"></i> Oportunidades para mim'.html_safe ,  pesquisas_path(egresso_id: current_user.egresso_id), style: 'color: white;' %></li>
+             <%end%>
+
+                   <li class="itensmenu"><%= link_to '<i class="fa fa-envelope-o"></i> Fale Conosco'.html_safe , "/fale_conoscos/new", style: 'color: white;' %> </li>
+       </ul> 
+        
+              <%end%>
+
+   
+            <% else %>
+              <% if empressa_signed_in? %> <!-- é empresa -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav" id="espaco"><li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li></ul>
+               <ul class="nav navbar-nav">         
+                  <li class="dropdown itensmenu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color: white;" onclick="ItemMenuManter(this)"><span class="fa fa-briefcase"></span> Minhas Informações <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><%= link_to ' Dados Principais',   edit_empresa_path(current_empressa.empresa, empresa_id: current_empressa.empresa ) %></li>
+                      <% if  Contato.where(:empresa_id => current_empressa.empresa).exists? %>
+                        <li><%= link_to ' Contatos',  contatos_path(@empresa, empresa_id:current_empressa.empresa) %> </li>
+                      <% else %>
+                        <li><%= link_to ' Contatos',  new_contato_path(@empresa, empresa_id:current_empressa.empresa) %> </li>
+                      <% end%>
+                      </ul>
+                  </li>
+                  <li class="itensmenu"> <%= link_to '<i class="fa fa-search"></i> Pesquisar Profissionais'.html_safe , pesquisar_empresas_path, style: 'color: white;' %></li>
+                      <% if  Oportunidade.where( :empresa_id => current_empressa.empresa).exists? %>
+                        <li class="itensmenu"><%= link_to ' Oportunidades',  oportunidades_path(@empresa, empresa_id: current_empressa.empresa), style: 'color: white' %> </li>
+                      <% else %>
+                        <li class="itensmenu"><%= link_to ' Oportunidades',  new_oportunidade_path(@empresa, empresa_id:current_empressa.empresa), style: 'color: white' %> </li>
+                      <% end%>
+                  <li class="itensmenu"><%= link_to '<i class="fa fa-envelope-o"></i> Fale Conosco'.html_safe , "/fale_conoscos/new" , style: 'color: white;' %> </li>
+                </ul>
+              <%else%>
+ 
+               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="links-externos">
+                <ul id="espaco" class="nav navbar-nav navbar" style=" margin-left: 40px; height: 56px;">
+                    <%= link_to image_tag("miniatura logo iff cc.PNG",size: "218x53", class: 'hvr-grow', style: 'border: none;'), 'http://portal1.iff.edu.br/nossos-campi/campos-centro', title: 'Portal IFF Campus Campos Centro', target: :_blank%>
+                </ul>
+                 <ul id="espaco" class="nav navbar-nav navbar" style=" margin-left: 10px">
+                    <%= link_to image_tag("Diretoria.jpg",size: "218x53", class: 'hvr-grow',  style: 'border: none;'), 'http://portal1.iff.edu.br/nossos-campi/campos-centro/extensao-e-cultura', title: 'Diretoria de Extensão, Pesquisa e Pós-graduação', target: :_blank%>
+                  </ul>
+                 <ul id="espaco" class="nav navbar-nav navbar" style="margin-left: 10px">
+                    <%= link_to image_tag("CAEx1.png",size: "218x53", class: 'hvr-grow',  style: 'border: none;'), 'http://portal1.iff.edu.br/nossos-campi/campos-centro/extensao-e-cultura/extensao-e-cultura', title: 'Ações de Extensão', target: :_blank%>
+                  </ul>
+                 <ul id="espaco" class="nav navbar-nav navbar" style="margin-left: 10px">
+                    <%= link_to image_tag("CAO.jpg",size: "218x53",class: 'hvr-grow',  style: 'border: none;'), 'http://portal1.iff.edu.br/nossos-campi/campos-centro/extensao-e-cultura/agencia-de-oportunidades', title: 'Agência de Oportunidades', target: :_blank%>
+                  </ul>
+                </div>
+                <div class="menus_hamb">
+                  <ul class="nav navbar-nav navbar-right">         
+                   <li class="itensmenu" ><%= link_to '<i class="fa fa-envelope-o"></i> Fale Conosco'.html_safe , "/fale_conoscos/new", style: 'color: white;' %> </li>
+                    <li class="dropdown itensmenu" style="color: white;">
+                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="login_item" style="color: white;"  onclick="ItemMenuManter(this)" >
+                          <span class="glyphicon glyphicon-hand-right" style="color: white;" ></span> 
+                          <i style="color: white;"> Login </i>
+                          <span class="caret" style="color: white;"></span>
+                       </a>
+                    <ul class="dropdown-menu" onmouseenter="ItemMenuManter(this)" onmouseout="ItemMenuDesfazer(this)">
+                      <li><span> <a href="<%= new_user_session_path %>" style="color: white;" id="usuario"><i class="glyphicon glyphicon-user"></i> &nbsp <i> Egresso </i></a></span></li>
+
+
+                      <li><span> <a href="<%= new_empressa_session_path %>" style="color: white;" id="empresa"><i class="glyphicon glyphicon-briefcase" > </i> &nbsp <i> Empresa </i></a> </span> </li>
+
+                      <li><span> <a href="<%= new_admin_session_path %>" style="color: white;" id="instituicao"><i class="fa fa-institution"> </i> &nbsp <i> Instituição </i></a> </span> </li>
+                    </ul>
+                  </li>
+                </ul>
+                </div>
+              </div>
+              <%if $manutencao%>
+              <script type="text/javascript">
+                $("#usuario").click( function(event){
+                  event.preventDefault();
+                  alert("Sistema em atualização, disponível em breve");
+                });
+                $("#empresa").click( function(event){
+                  event.preventDefault();
+                  alert("Disponível em breve");
+                });
+              </script>
+              <%end%>
+              <%end%>
+            <%end%>
+          <%end%>
+
+              <% if admin_signed_in? || user_signed_in? || empressa_signed_in? %>
+
+               <!--Botão de Sessão -->
+            <ul class="nav navbar-nav navbar-right" >
+                <li class="dropdown itensmenu" style="color: white;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;" onclick="ItemMenuManter(this)" >
+                        <span class="glyphicon glyphicon-user" style="color: white;" ></span> 
+                        <i style="color: white;"> Sessão </i>
+                        <span class="caret" style="color: white;"></span>
+                    </a>
+                    <ul class="dropdown-menu" onmouseenter="ItemMenuManter(this)" onmouseout="ItemMenuDesfazer(this)" >
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                    <div class="profile-userpic"  >
+                                        <% if admin_signed_in? %>  
+                                          <% if current_admin.try(:super?) %>
+                                            <%= image_tag("rodolfo.jpg") %>
+                                          <% else %>
+                                            <%= image_tag("centro.jpg") %>
+                                          <% end %>                                            
+                                        <% else %>
+                                          <% if user_signed_in? %>
+                                            <% if current_user.egresso.try(:foto?)  %>
+                                            <%= image_tag(current_user.egresso.foto) %>
+                                            <%else%>
+                                            <%= image_tag('login.jpg', style: 'background-color: transparent') %>
+                                            <% end %>
+                                          <% else %>
+                                            <% if empressa_signed_in? %>
+                                              <% if current_empressa.empresa.try(:logo?)  %>
+                                              <%= image_tag(current_empressa.empresa.logo) %>
+                                              <%else%>
+                                              <%= image_tag('sualogo1.png', style: 'background-color: transparent') %>
+                                              <% end %>
+                                            <% end %>
+                                          <% end %>  
+                                        <% end %>                    
+                                  </div>
+                                    </div>
+
+                                    <div class="col-lg-8">
+                                      <div class="profile-usertitle-job"> Bem-vindo(a)!</div>
+                                        <% if admin_signed_in? %>
+                                          <% if current_admin.try(:super?) %>
+                                                Desenvolvedor(a)
+                                            <% else %>
+                                                <%if current_admin.email == "agencia@iff.edu.br"%>
+                                                    Agência de Oportunidades
+                                                <% else %>
+                                                  <%if current_admin.email == "pesquisador@iff.edu.br"%>
+                                                    Pesquisador(a)
+                                                  <%else %>
+                                                    <%if current_admin.email == "estudante@iff.edu.br"%>
+                                                      Estudante
+                                                    <%else %>
+                                                      <%if current_admin.email.include? "dir"%>
+                                                        Diretor(a)                      
+                                                      <%else %>
+                                                        <%if current_admin.email.include? "coord"%>
+                                                          Coordenador(a)       
+                                                        <% else %>
+                                                        Registro Acadêmico
+                                                        <% end %>
+                                                      <% end %>
+                                                    <% end %>
+                                                <% end %>                 
+                                          <% end %>
+                                        <% end %>
+
+                                      <% else %>
+                                          <% if user_signed_in? %>
+                                               <%= current_user.egresso.nome_completo%>                                            
+                                          <% else %>
+                                            <% if empressa_signed_in? %>
+                                               <%= current_empressa.empresa.razao_social%>
+                                            <%end%>
+                                          <%end%>  
+                                        <% end%>
+
+                                        <p class="text-left">
+                                        <%if admin_signed_in? %>
+                      
+                                             <%= button_to edit_admin_registration_path, method: "get", class: " btn btn-success btn3d btn-block" do %>
+                                               <span class="glyphicon glyphicon-pencil"> Editar dados</span>
+                                               <% end %>
+                                        <%else%>
+                                           <% if user_signed_in? %>
+                                           <%= button_to edit_user_registration_path, method: "get", class: " btn btn-success btn3d btn-block" do %>
+                                               <span class="glyphicon glyphicon-pencil"> Editar dados </span>
+                                               <% end %>
+
+                                           <% else %>  
+                                             <% if empressa_signed_in? %>
+                                             <%= button_to edit_empressa_registration_path, method: "get", class: " btn btn-success btn3d btn-block" do %>
+                                               <span class="glyphicon glyphicon-pencil"> Editar dados</span>
+                                               <% end %>
+                                             <% end %>
+                                           <%end%>
+                                        <%end%>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <%if admin_signed_in? %>
+                                            <%= button_to destroy_admin_session_path, method: "delete", class: " btn btn-danger btn-lg btn3d btn-block", data: { confirm: 'Tem certeza que deseja terminar a sessão?', disable_with: 'Encerrando sessão...'}  do %>
+                                                <span class="glyphicon glyphicon-off"> Terminar Sessão</span>
+                                              <% end %>
+                                        <%else%>
+                                          <% if user_signed_in? %>
+                                           <%= button_to destroy_user_session_path, method: "delete", class: " btn btn-danger btn-lg btn3d btn-block", data: { confirm: 'Tem certeza que deseja terminar a sessão?', disable_with: 'Encerrando sessão...'}  do %>
+                                               <span class="glyphicon glyphicon-off"> Terminar Sessão</span>
+                                               <% end %>
+                                          <% else %>
+                                            <% if empressa_signed_in? %>
+                                              <%= button_to destroy_empressa_session_path, method: "delete", class: " btn btn-danger btn-lg btn3d btn-block", data: { confirm: 'Tem certeza que deseja terminar a sessão?', disable_with: 'Encerrando sessão...'}  do %>
+                                               <span class="glyphicon glyphicon-off"> Terminar Sessão</span>
+                                               <%end%>
+                                             <% end %>
+                                          <% end %>
+                                       <% end %>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            
+              <% end %>
+          </div>
+            <!-- /.navbar-collapse -->
+               </nav>
+
+<script type="text/javascript">
+  function ItemMenuManter(elem){
+    if ($(window).width() < 1201){
+elem.style.backgroundColor ='#427B3A';
+  }else{
+    elem.style.backgroundColor ='transparent';
+  }
+}
+function   ItemMenuDesfazer(elem){
+    if ($(window).width() < 1201){
+elem.style.backgroundColor ='#427B3A';
+  }else{
+    elem.style.backgroundColor ='transparent';
+  }
+}
+
+</script>
+

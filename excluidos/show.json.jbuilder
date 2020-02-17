@@ -1,0 +1,1 @@
+json.partial! "excluidos/excluido", excluido: @excluido

@@ -1,0 +1,17 @@
+<%= form_for(lembrete_bdo) do |f| %>
+  <% if lembrete_bdo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(lembrete_bdo.errors.count, "error") %> prohibited this lembrete_bdo from being saved:</h2>
+
+      <ul>
+      <% lembrete_bdo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @exp_prof.cpf.cpf %>
+</p>
+
+<p>
+  <strong>Empresa:</strong>
+  <%= @exp_prof.empresa %>
+</p>
+
+<p>
+  <strong>Ramo ativ:</strong>
+  <%= @exp_prof.ramo_ativ.ramo_ativ %>
+</p>
+
+<p>
+  <strong>Tipo rel:</strong>
+  <%= @exp_prof.tipo_rel %>
+</p>
+
+<p>
+  <strong>Cargo:</strong>
+  <%= @exp_prof.cargo %>
+</p>
+
+<p>
+  <strong>Data ini:</strong>
+  <%= @exp_prof.data_ini %>
+</p>
+
+<p>
+  <strong>Data fim:</strong>
+  <%= @exp_prof.data_fim %>
+</p>
+
+<%= link_to 'Edit', edit_exp_prof_path(@exp_prof) %> |
+<%= link_to 'Back', exp_profs_path %>

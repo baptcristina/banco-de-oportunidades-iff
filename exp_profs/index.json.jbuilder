@@ -1,0 +1,1 @@
+json.array! @exp_profs, partial: 'exp_profs/exp_prof', as: :exp_prof

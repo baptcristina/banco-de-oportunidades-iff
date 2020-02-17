@@ -1,0 +1,1 @@
+json.array! @fale_conoscos, partial: 'fale_conoscos/fale_conosco', as: :fale_conosco

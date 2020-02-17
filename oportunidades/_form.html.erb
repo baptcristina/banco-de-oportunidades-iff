@@ -1,0 +1,260 @@
+<br>
+<%= form_for(oportunidade) do |f| %>
+<div class="container">
+<div class= " form-group  col-md-12">
+<div class="panel"> <span><%= link_to '', oportunidades_path(empresa_id: params[:empresa_id]),:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%> </span>
+<div class="panel-heading"><strong>Cadastro de Ofertas</strong></div>
+<div class="panel-body">
+<form class="form-horizontal ">
+
+<div class="col-md-6">
+<% if @oportunidade.empresa_id? %>
+ <div class="form-group col-md-12" , style= "display:none;">
+      <%= f.label :empresa_id , "Nome da Empresa"%>
+      <%= f.select :empresa_id, options_for_select(Empresa.where(cnpj: @oportunidade.empresa.cnpj).map{|m| [m.razao_social,m.id]}.sort,f.object.empresa_id), {disabled: true}, class: 'selectpicker form-control' %>
+
+  </div> 
+<% else %>
+  <%if admin_signed_in? %>
+     <div class="form-group col-md-12">
+        <%= f.label :empresa_id , "Nome da Empresa"%>
+        <%= f.select :empresa_id, options_for_select(Empresa.where('1=1').map{|m| [m.razao_social, m.id]}.sort,f.object.empresa_id), {disabled: false, prompt: 'Selecione uma empresa'}, class: 'selectpicker form-control' %>
+    </div>
+    <% else %>
+      <div class="form-group col-md-12", style= "display:none;">
+        <%= f.label :empresa_id , "Nome da Empresa"%>
+        <%= f.select :empresa_id, options_for_select(Empresa.where(cnpj: current_empressa.empresa.cnpj).map{|m| [m.razao_social,m.id]}.sort,f.object.empresa_id), {disabled: true}, class: 'selectpicker form-control' %>
+  </div>
+    <%end%>
+<%end%>
+
+      <div class="form-group col-md-12">
+    <%= f.label :curso,"Formação Exigida" %>
+    <%if params[:pformacao] == nil%>
+    <%= f.select :curso,options_for_select(Titulacao.all.map {|m| [m.titulo]}.sort,selected: @oportunidade.curso), {prompt: 'Selecionar curso'}, class: 'selectpicker form-control', id: 'campo1' %>
+    <%else%>
+    <%= f.select :curso, options_for_select(Titulacao.all.map {|m| [m.titulo]}.sort,selected: Titulacao.where(titulo: params[:pformacao]).first.try(:titulo)), {prompt: 'Selecionar curso'}, class: 'selectpicker form-control', id: 'campo1' %>
+    <%end%>
+  </div>
+
+      <div class="form-group col-md-6">
+        <%= f.label :panoconclusao_inicio, "Entre:" %>
+        <%= f.date_field :panoconclusao_inicio, class: 'form-control', value: params[:panoconclusao_inicio], id: 'campo2' %>
+    </div>
+    <div class="form-group col-md-6">
+        <%= label_tag(:panoconclusao_fim, "e:") %>
+        <%= f.date_field :panoconclusao_fim, class: 'form-control', value: params[:panoconclusao_fim] , id: 'campo3'%> 
+    </div>
+    <%if @oportunidade.id?%>
+     <div class="col-md-12">
+        <%= label_tag(:pidioma, "Idioma:") %> <br>
+        <%= f.text_field :pidioma, id: 'idioma', style: 'display: none;'%>
+
+     <div  class="bfh-selectbox" data-name="selectbox3" data-value="<%=session[:pidioma]%>" onChange="UncheckRadio(this)" id = "campo4">
+  <div data-value=""> Selecione um idioma </div>
+  <div data-value="Inglês" ><span class="bfh-languages" data-language="en_US" data-flags="true"></span></div>
+   <div data-value="Francês"><span class="bfh-languages" data-language="fr_FR" data-flags="true" ></span></div>
+    <div data-value="Espanhol"><span class="bfh-languages" data-language="es_MX" data-flags="true"></span></div>
+     <div data-value="Italiano"><span class="bfh-languages" data-language="it_IT" data-flags="true" ></span></div>
+     <div data-value="Alemão"><span class="bfh-languages" data-language="de_DE" data-flags="true"></span></div>
+</div>
+
+      <br>
+      <div align="center"> 
+        <%= f.radio_button :ptipo ,"1",class: 'radio-inline',id: 'campo5'%> Básico
+        <%= f.radio_button :ptipo ,"2",class: 'radio-inline',id: 'campo6'%> Intermediário
+        <%= f.radio_button :ptipo ,"3",class: 'radio-inline',id: 'campo7'%> Avançado
+        <%= f.radio_button :ptipo ,"4", class: 'radio-inline',id: 'campo8'%> Fluente
+      </div>
+</div>
+    <%else%>
+     <div class="col-md-12">
+        <%= label_tag(:pidioma, "Idioma:") %> <br>
+        <%= f.text_field :pidioma, id: 'idioma', style: 'display: none;'%>
+     <div  class="bfh-selectbox" data-name="selectbox3" data-value="<%=session[:pidioma]%>" onChange= "UncheckRadio(this)" id = "campo4">
+  <div data-value=""> Selecione um idioma </div>
+  <div data-value="Inglês" ><span class="bfh-languages" data-language="en_US" data-flags="true"></span></div>
+   <div data-value="Francês"><span class="bfh-languages" data-language="fr_FR" data-flags="true" ></span></div>
+    <div data-value="Espanhol"><span class="bfh-languages" data-language="es_MX" data-flags="true"></span></div>
+     <div data-value="Italiano"><span class="bfh-languages" data-language="it_IT" data-flags="true" ></span></div>
+     <div data-value="Alemão"><span class="bfh-languages" data-language="de_DE" data-flags="true"></span></div>
+</div>
+
+      <br>
+      <div align="center"> 
+        <%= f.radio_button :ptipo ,"1", class: 'radio-inline', id: 'campo5'%> Básico
+        <%= f.radio_button :ptipo ,"2", class: 'radio-inline', id: 'campo6'%> Intermediário
+        <%= f.radio_button :ptipo ,"3", class: 'radio-inline', id: 'campo7'%> Avançado
+        <%= f.radio_button :ptipo ,"4", class: 'radio-inline', id: 'campo8'%> Fluente
+      </div>
+
+</div>
+<%end%>
+
+
+   <div class="form-group col-md-6">
+<br>
+    <%= f.label :visivel,"Ocultar Nome da Empresa?",  class: 'label-control' %>
+    <%= f.check_box :visivel, {}, false, true %>
+  </div>
+
+</div>
+
+<div class="col-md-6">
+      <div class="form-group col-md-12">
+    <%= f.label :cargo,"Cargo" %>
+    <%= f.text_field :cargo, class: 'form-control' %>
+
+  </div>
+<style>
+  #text_area_req::-webkit-scrollbar {
+  width: 0px;
+  background-color: transparent; }
+</style>
+
+      <div class="form-group col-md-12">
+    <%= f.label :requisitos,"Requisitos" %>
+    <%= f.text_area :requisitos,cols: 3, rows: 3 , class: 'form-control', :maxlength => 150 , id: 'text_area_req'%>
+
+  </div>
+
+      <div class="form-group col-md-12">
+    <%= f.label :observacoes,"Observações" %>
+    <%= f.text_area :observacoes, class: 'form-control' , :maxlength => 150%>
+  </div>
+
+
+      <div class="form-group col-md-4">
+    <%= f.label :salario,"Salário" %>
+    <%= f.text_field :salario, style: 'direction: RTL;', data: { thousands: "." , decimal: ",", prefix: 'R$ '},  id: 'valor',  class: 'form-control' %>
+  </div>
+
+      <div class="form-group col-md-8">
+    <%= f.label :local_inscricao,"Local de Inscrição" %>
+    <%= f.text_field :local_inscricao,  class: 'form-control' %>
+  </div>
+
+
+      <div class="form-group col-md-6">
+    <%= f.label :ini_oferta,"Data de Início da Oferta",  class: 'label-control' %>
+    <%= f.date_field :ini_oferta,  class: 'form-control', id: 'ini_oferta' %>
+  </div>
+
+
+
+      <div class="form-group col-md-6">
+    <%= f.label :fim_oferta,"Data de Término da Oferta",  class: 'label-control' %>
+    <%= f.date_field :fim_oferta,  class: 'form-control' %>
+  </div>
+
+<% if empressa_signed_in? %>
+  <div class="form-group col-md-12">
+        <%= f.label :contato_id , "Responsável pela Oferta"%>
+        <%if @oportunidade.id?%>
+        <%= f.select :contato_id, options_for_select(Contato.where(empresa_id: current_empressa.empresa_id).map{|m| [m.nome,m.id]}.sort,f.object.contato_id), {:include_blank => 'Selecionar o Responsavel pela Oferta'}, class: 'selectpicker form-control' %>
+        <%else%>
+                <%= f.select :contato_id, options_for_select(Contato.where(empresa_id: current_empressa.empresa_id).map{|m| [m.nome,m.id]}.sort,f.object.contato_id), {prompt: 'Selecionar o Responsavel pela Oferta'}, class: 'selectpicker form-control' %>
+        <%end%>
+  </div>
+<% end %>
+<%if not(params[:clone] == 'yes')%>
+<% if (not(action_name == 'new')&&(oportunidade.situacao == nil)||(current_admin.try(:super?))) %>
+    <div class="form-group col-md-12">
+      <div align="center"> 
+        <%if current_admin.try(:super?)%>
+          <%= f.radio_button :situacao ,"Vigente",class: 'radio-inline', id: 'vigen'%> Vigente  
+        <%end%>
+          <%= f.radio_button :situacao ,"Encerrada",class: 'radio-inline', id: 'encer'%> Encerrada
+          <%= f.radio_button :situacao ,"Cancelada", class: 'radio-inline', id: 'canc'%> Cancelada
+        <%if current_admin.try(:super?)%>
+          <%= f.radio_button :situacao ,"Expirada",class: 'radio-inline', id: 'expi'%> Expirada 
+        <%end%>
+       </div>
+      </div>
+    </div>
+  <% end %>
+<%end%>
+</div>
+<div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', :back, class: 'btn  btn-danger btn3d'  %>
+      <%= button_tag(type: 'submit', data: { disable_with: "Salvando..." }, class: "btn btn-success btn3d") do %> Salvar <% end %>
+    </div>
+</div>
+<br>
+<% end %>
+
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+  let urlParams = new URLSearchParams(window.location.search);
+  let pformacao = urlParams.get('pformacao');
+  let panoconclusao_inicio = urlParams.get('panoconclusao_inicio');
+  let panoconclusao_fim = urlParams.get('panoconclusao_fim');
+  let pidioma = urlParams.get('pidioma');
+  let ptipo = urlParams.get('ptipo');
+
+  if (pformacao != null&& pformacao!=""){
+    document.getElementById("campo1").style.border = "1px solid #4165f4";
+  }
+  if (panoconclusao_inicio != null&& panoconclusao_inicio!=""){
+    document.getElementById("campo2").style.border = "1px solid #4165f4";
+  }
+    if (panoconclusao_fim != null&& panoconclusao_fim!=""){
+    document.getElementById("campo3").style.border = "1px solid #4165f4";
+  }
+  if (pidioma != null&& pidioma!=""){
+    document.getElementById("campo4").style.border = "1px solid #4165f4";
+  }
+  if (ptipo == "1"){
+    document.getElementById("campo5").style.color = "#4165f4";
+  }
+  if (ptipo == "2"){
+    document.getElementById("campo6").style.color = "#4165f4";
+  }
+  if (ptipo == "3"){
+    document.getElementById("campo7").style.color = "#4165f4";
+  }
+  if (ptipo == "4"){
+    document.getElementById("campo8").style.color = "#4165f4";
+  }
+
+   function  UncheckRadio(e){
+              document.getElementById('idioma').value =  $(e).val();
+              $("#oportunidade_ptipo_1").prop('checked', false); 
+              $("#oportunidade_ptipo_2").prop('checked', false); 
+              $("#oportunidade_ptipo_4").prop('checked', false); 
+              $("#oportunidade_ptipo_3").prop('checked', false); 
+          }
+            
+function UncheckSituacao(){
+  $("#vigen").prop('checked', false); 
+  $("#canc").prop('checked', false); 
+  $("#expi").prop('checked', false); 
+  $("#encer").prop('checked', false); 
+}
+
+
+$(document).ready(function getRadioValue() {
+    $("#campo4").trigger("change");
+    var list = $("input:radio");
+    var ptipo =  <%if not(params[:ptipo].nil?)%><%= params[:ptipo].html_safe%><%else%><%="\"\"".html_safe%><%end%>;
+    if(window.location.href.indexOf("new") > -1) {
+      for (var i=0; i<list.length; i++){
+        if (list[i].value == ptipo) {
+          list[i].checked = true;
+        }else{
+          list[i].checked = false;
+        }
+      }
+    }
+});
+
+</script>

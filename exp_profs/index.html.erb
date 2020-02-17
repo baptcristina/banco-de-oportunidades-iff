@@ -1,0 +1,82 @@
+<br>
+<div class="container col-md-12" >
+<% if current_admin.try(:super?) %>
+
+<%= render 'formbusca'%>
+
+<%end%>
+
+<div class="panel " >
+ <span><%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%> <%= link_to' Nova Experiência', new_exp_prof_path(@exp_prof, egresso_id: params[:egresso_id]),:method => :post , :class =>"btn btn-success btn3d fa fa-briefcase pull-right"%> <% if current_admin.try(:super?) %><a class="btn btn-sm btn-success btn3d pull-right" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
+    <i class="fa fa-search" title="Pesquisar"></i>
+  </a> <%end%> </span>
+<div class="panel-heading"><strong>Experiência Profissional</strong></div>
+
+<div class="panel-body">
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover">
+<% if current_admin.try(:super?) %>
+   <col width="150px" />
+    <col width="250px" />
+    <% end %>
+    <col width="280px" />
+    <col width="150px" />
+    <col width="120px" />
+<% if not(current_admin.try(:super?)) %>    
+    <col width="160x" />
+    <col width="140px" />
+    <% end %>
+    <col width="140x" />
+  
+  <thead>
+      <tr>
+      <% if current_admin.try(:super?) %>
+      <th>CPF</th>
+      <th>Nome do Egresso</th>
+      <% end %>
+      <th>Nome da Empresa</th>
+      <th>Ramo de Atividade</th>
+      <th>Tipo </th>
+      <th>Cargo</th>
+      <% if not(current_admin.try(:super?)) %>   
+      <th style="text-align: center">Data de Início</th>
+      <th style="text-align: center">Data de Término</th>
+      <% end %>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exp_profs.each do |exp_prof| %>
+      <tr>
+      <% if current_admin.try(:super?) %>
+        <td><%= exp_prof.egresso.cpf if exp_prof.egresso %></td>
+        <td><%= exp_prof.egresso.nome_completo if exp_prof.egresso %></td>
+        <% end %>
+        <td><%= exp_prof.empresa %></td>
+        <td><%= exp_prof.ramo_ativ.ramo_ativ if exp_prof.ramo_ativ %></td>
+        <td><%= exp_prof.tipo_rel %></td>
+        <td><%= exp_prof.cargo %></td>
+        <% if not(current_admin.try(:super?)) %>   
+        <td align="center" ><%= exp_prof.data_ini %></td>
+        <td align="center" ><%= exp_prof.data_fim %></td>
+        <%end%>
+        <td align="center" colspan="3">
+         <div class="btn-group icons" style="width: 120px;">
+          <div align="center">        
+          <%= link_to '',  edit_exp_prof_path(exp_prof, egresso_id: exp_prof.egresso_id),title: "Editar", :class =>"btn btn-success btn3d fa fa-pencil" %>
+          <%= link_to '',  exp_prof,title: "Excuir Experiência", method: :delete, data: { confirm: 'Are you sure?' }, :class =>"btn btn-danger btn3d fa fa-trash " %>
+          </div>
+        </div>
+  </td>
+       </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div align="center">
+<%= will_paginate @exp_profs, renderer: BootstrapPagination::Rails, color: "green", next_label: ">>", previous_label: "<<"   %>
+</div>
+</div>
+</div>
+</div>

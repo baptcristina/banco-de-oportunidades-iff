@@ -1,0 +1,281 @@
+<br>
+<% if user_signed_in? %>
+
+<div class="container">
+  <div class="panel">
+    <div class="panel-heading"><strong> Oportunidade </strong> <%= link_to '<i class="fa fa-print" aria-hidden="true" ></i> Imprimir'.html_safe ,'', onclick: "printpage()", class: "btn btn-success" %> <%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%></div>
+
+          <div class="panel-body" class="col-md-12" align="center" >
+  <div align="center">
+            <%=  image_tag("logo simples campos centro.jpg", width: 200, height: 80) %>
+            <%= image_tag("Diretoria.jpg",size:"100%")%>
+            <%=  image_tag("CAO1.png",size:"100%")%>
+            <%if @oportunidade.visivel == true %>
+              <%= image_tag(@oportunidade.empresa.logo, width: "80px", height: "80px") if  @oportunidade.empresa.logo? %>
+            <%end%>
+            <br>
+</div>
+          <div align="center">
+            <h1><%=  image_tag("BdO rotacionado.png",width:"50px", id: 'imagem_bdo_oferta')%><strong id="oferta_de_emprego"> OFERTA  DE  EMPREGO </strong></h1>
+          </div>
+
+          <table class="table table-bordered" style='table-layout:fixed; width:100%;'>
+
+            <tr>
+                <td style="word-wrap: break-word">
+                    <h3>Empresa: </h3>                 
+                    <div class="col-md-2"></div> 
+                    <%if @oportunidade.visivel == false%>
+                    <h4> Confidencial </h4>
+                    <%else%>
+                    <h4><%= @oportunidade.empresa.nome_fantasia if @oportunidade.empresa%></h4>
+                    <%end%>
+                </td>
+
+                <td style="word-wrap: break-word">
+                    <h3>Curso:</h3>
+                    <div class="col-md-2"></div>
+                    <h4><%= @oportunidade.curso %></h4>
+              </td>
+            </tr>
+
+            <tr>
+              <div class="col-md-12">
+                <td style="word-wrap: break-word">
+                  <div align="left" class="col-md-0">
+                  <h3>Cargo: </h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="left" class="col-md-0">
+                  <h4><%= @oportunidade.cargo %></h4></div>
+                </td>
+
+                <td style="word-wrap: break-word">
+                  <div align="left" class="col-md-0">
+                  <h3>Salário:</h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="left" class="col-md-0">
+                  <h4><%= @oportunidade.salario %></h4></div>
+                </td>
+              </div>
+            </tr>
+          
+            <tr>
+              <div class="col-md-12">
+                <td style="word-wrap: break-word;text-align:justify;padding-bottom: 40px">
+                  <div align="left" class="col-md-0">
+                  <h3>Requisitos: </h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="justify" class="col-md-0">
+                  <h4><%= @oportunidade.requisitos %></h4></div>
+                </td>
+
+                <td style="word-wrap: break-word;text-align:justify;padding-bottom: 40px">
+                  <div align="left" class="col-md-0">
+                  <h3>Observações:</h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="justify" class="col-md-0">
+                  <h4><%= @oportunidade.observacoes %></h4></div>
+                </td>
+              </div>
+            </tr>
+
+
+            <tr>
+              <div class="col-md-12">
+                <td style="word-wrap: break-word">
+                  <div align="left" class="col-md-0">
+                  <h3>Local para inscrição: </h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="left" class="col-md-0">
+                  <%if checar_local_inscricao(@oportunidade.local_inscricao) == '1'%>
+                    <h4><%= @oportunidade.local_inscricao %></h4>
+                  <%else%>
+                      <%if checar_local_inscricao(@oportunidade.local_inscricao) == '2'%>
+                        <h4><%= link_to 'Acesar Local', @oportunidade.local_inscricao %></h4>
+                      <%else%>
+                        <%if checar_local_inscricao(@oportunidade.local_inscricao) == '3'%>
+                          <h4> <%= mail_to  @oportunidade.local_inscricao %></h4>
+                        <%end%>
+                      <%end%>
+                  <%end%>
+                  </div>
+                </td>
+                
+                <td style="word-wrap: break-word">
+                  <div align="left" class="col-md-0">
+                  <h3>Validade da oferta:</h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="left" class="col-md-0">
+                  <h4><%= @oportunidade.ini_oferta %> a
+                  <%= @oportunidade.fim_oferta %></h4></div>
+                </td>
+              </div>
+            </tr>
+          </table>
+                Situação da oferta:  
+                <%= @oportunidade.situacao %> <%if @oportunidade.situacao != nil%> <%end%>
+                <%if @oportunidade.situacao == nil%> <%=  "Vigente" %> <%end%>
+                
+                <div align="right" class="col-md-0">
+                <font size="1"><%= Time.zone.now.strftime("Gerado pelo sistema em %d/%m/%Y às %H:%M") %> </font></div>
+    </div>
+
+
+   <div class="form-group col-md-12">
+    <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', :back, class: 'btn btn-danger btn3d'  %>
+    </div>
+  </div>
+</div>
+
+<% else %>
+
+<div class="container">
+  <div class="panel">
+    <div class="panel-heading"><strong> Oportunidade </strong> <%= link_to '<i class="fa fa-print" aria-hidden="true" ></i> Imprimir'.html_safe ,'', onclick: "printpage()", class: "btn btn-success " %> <%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%> </div>
+
+          <div class="panel-body" class="col-md-12" align="center" >
+  
+            <%= image_tag("logo simples campos centro.jpg", width: 200, height: 80) %>
+            <%= image_tag("Diretoria.jpg",size:"100%")%>
+            <%= image_tag("CAO1.png",size:"100%")%>
+            <%if @oportunidade.visivel == true %>
+              <%= image_tag(@oportunidade.empresa.logo, width: "80px", height: "80px") if  @oportunidade.empresa.logo? %>
+            <%end%>
+            <br>
+
+          <div align="center">
+            <h1><%=  image_tag("BdO rotacionado.png",width:"50px")%><strong id="oferta_de_emprego"> OFERTA  DE  EMPREGO </strong></h1>
+          </div>
+
+          <table class="table table-bordered" style='width:100%; '>
+
+            <tr>
+                <td style="word-wrap: break-word;width: 50%">
+                    <h3>Empresa: </h3>                 
+                    <div class="col-md-2"></div>               
+                    <%if @oportunidade.visivel == false%>
+                    <h4> Confidencial </h4>
+                    <%else%>
+                    <h4><%= @oportunidade.empresa.nome_fantasia if @oportunidade.empresa%></h4>
+                    <%end%>
+                </td>
+
+                <td style="word-wrap: break-word;width: 50%">
+                    <h3>Curso:</h3>
+                    <div class="col-md-2"></div>
+                    <h4><%= @oportunidade.curso %></h4></td>
+            </tr>
+
+            <tr>
+              <div class="col-md-12">
+                <td style="word-wrap: break-word;width: 50%;">
+                  <div align="left" class="col-md-0">
+                  <h3>Cargo: </h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="left" class="col-md-0">
+                  <h4><%= @oportunidade.cargo %></h4></div>
+                </td>
+
+                <td style="word-wrap: break-word;width: 50%;">
+                  <div align="left" class="col-md-0">
+                  <h3>Salário:</h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="left" class="col-md-0">
+                  <h4><%= @oportunidade.salario %></h4></div>
+                </td>
+              </div>
+            </tr>
+          
+            <tr>
+              <div class="col-md-12">
+                <td style="word-wrap: break-word;text-align:justify;width: 50%;">
+                  <div align="left">
+                  <h3>Requisitos: </h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="justify" class="col-md-0">
+                  <h4><%= @oportunidade.requisitos %></h4></div>
+                </td>
+
+                <td style="word-wrap: break-word;text-align:justify;width: 50%;">
+                  <div align="left">
+                  <h3>Observações:</h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="justify" class="col-md-0">
+                  <h4><%= @oportunidade.observacoes %></h4></div>
+                </td>
+              </div>
+            </tr>
+
+
+            <tr>
+              <div class="col-md-12">
+                <td style="word-wrap: break-word;width: 50%">
+                  <div align="left" class="col-md-0">
+                  <h3>Local para inscrição: </h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="left" class="col-md-0">
+                  <%if checar_local_inscricao(@oportunidade.local_inscricao) == '1'%>
+                    <h4><%= @oportunidade.local_inscricao %></h4>
+                  <%else%>
+                      <%if checar_local_inscricao(@oportunidade.local_inscricao) == '2'%>
+                        <h4><%= link_to  @oportunidade.local_inscricao, @oportunidade.local_inscricao %></h4>
+                      <%else%>
+                        <%if checar_local_inscricao(@oportunidade.local_inscricao) == '3'%>
+                          <h4> <%= mail_to @oportunidade.local_inscricao %></h4>
+                        <%end%>
+                      <%end%>
+                  <%end%>
+                  </div>
+                </td>
+                
+                <td style="word-wrap: break-word;width: 50%;">
+                  <div align="left" class="col-md-0">
+                  <h3>Validade da oferta:</h3></div>
+
+                  <div class="col-md-2"></div>
+                  <div align="left" class="col-md-0">
+                  <h4><%= @oportunidade.ini_oferta %> a
+                  <%= @oportunidade.fim_oferta %></h4></div>
+                </td>
+              </div>
+            </tr>
+          </table>
+                Situação da oferta:  
+                <%= @oportunidade.situacao %> <%if @oportunidade.situacao != nil%> <%end%>
+                <%if @oportunidade.situacao == nil%> <%=  "Vigente" %> <%end%>
+
+
+                <div align="right" class="col-md-0">
+                <font size="1"><%= Time.zone.now.strftime("Gerado pelo sistema em %d/%m/%Y às %H:%M") %> </font></div>
+    </div>
+
+
+   <div class="form-group col-md-12">
+    <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', :back, class: 'btn btn-danger btn3d'  %>
+    </div>
+  </div>
+</div>
+
+<%end%>
+
+</div>
+</div>
+</div>
+</div>

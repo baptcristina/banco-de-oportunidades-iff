@@ -1,0 +1,1 @@
+json.partial! "fale_conoscos/fale_conosco", fale_conosco: @fale_conosco

@@ -1,0 +1,50 @@
+<%= form_for(info) do |f| %>
+  <% if info.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(info.errors.count, "error") %> prohibited this info from being saved:</h2>
+
+      <ul>
+      <% info.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="col-md-3"></div>
+<div class="col-md-6">
+<div class="container" ></div>
+<div class="panel" ><%= link_to '', :back,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%> 
+<div class="panel-heading"><strong>Incluir Notícias</strong></div>
+<div class="panel-body">
+<div class="table-responsive">
+
+<form class="form-horizontal ">
+
+  <div class="col-md-12">
+  <%= f.fields_for :infos do |info|%>
+  <% render 'info_fields', f: info%>
+  <%end%>
+  </div>
+
+</div>
+</div>
+</div>
+
+
+  <div class="form-group col-md-12"></div>
+  <div class="form-group col-md-12">
+    <div align="center">
+      <div class="btn-group icons">
+        <%= link_to 'Voltar', divulgacaos_path, class: 'btn  btn-danger btn3d'  %>
+        <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<% end %>
+

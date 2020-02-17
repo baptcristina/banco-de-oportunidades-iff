@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta property="og:image" content="http://bancodeoportunidades.centro.iff.edu.br/rotacionado.png" /> 
+   <meta property="og:type" content="website" />
+   <meta property="og:url" content="http://bancodeoportunidades.centro.iff.edu.br/" />
+   <meta property="og:title" content="Banco de Oportunidades - Instituto Federal Fluminense campus Campos Centro" />
+   <meta property="og:description" content="Site de oportunidades de emprego do IFF - Campos Centro" />
+   <meta property="fb:app_id" content="2274410759480080" />
+
+  <head>
+
+
+    <title> Banco de Oportunidades</title>
+    <%= csrf_meta_tags %>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+
+  </head>
+
+
+<body>
+  <div>
+
+         <%= render "layouts/navbar" %>
+       </div>
+<div class="col-md-12"  style="height: 82vh;">
+  <br>
+<span class="success_msgs fade in">
+                           <% if notice %>
+                              <p class="alert alert-success"><a class="glyphicon glyphicon-ok" style="color: green;"></a>&nbsp&nbsp
+                              <%= notice %> <button class="close" data-dismiss="alert">×</button></p>
+                            <% end %> 
+                            </span>
+
+<span class="error_msgs fade in"> <% if alert %>
+        <p class="alert alert-danger"> <a class="glyphicon glyphicon-info-sign" style="color: red;"> </a>&nbsp&nbsp
+            <%= alert %> <button class="close" data-dismiss="alert">×</button>
+        </p> <% end %> 
+        </span>
+
+
+
+<div class="col-md-12 container" id="shadow_container"  style="min-height: 100%;">
+ <%= yield %> 
+</div>
+
+</div>
+</body>
+</html>

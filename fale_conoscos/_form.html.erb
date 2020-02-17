@@ -1,0 +1,52 @@
+<br>
+<%= form_for(fale_conosco) do |f| %>
+  <% if fale_conosco.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(fale_conosco.errors.count, "error") %> prohibited this fale_conosco from being saved:</h2>
+
+      <ul>
+      <% fale_conosco.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="col-md-3"></div>
+<div class= " form-group  col-md-6">
+  <div class="panel"> 
+    <div class="panel-heading"><strong> Fale Conosco </strong></div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <form class="form-horizontal ">
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :assunto %>
+    <%= f.text_field :assunto , class: 'form-control'%>
+  </div>
+
+  <div class="field">
+    <%= f.label :mensagem %>
+    <%= f.text_area :mensagem , rows: 6, class: 'form-control'%>
+  </div>
+
+<br>
+
+   </div>
+  </div>
+ </div>
+</div>
+<div class="col-md-3"><br>
+<br>
+</div>
+<br>
+  <div class="actions col-md-12" align="center">
+    <%= link_to 'Voltar', :back, class: 'btn  btn-danger btn3d'  %>
+    <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+     </div>
+    </form>
+<% end %>

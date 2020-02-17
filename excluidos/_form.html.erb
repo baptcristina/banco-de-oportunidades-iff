@@ -1,0 +1,22 @@
+<%= form_for(excluido) do |f| %>
+  <% if excluido.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(excluido.errors.count, "error") %> prohibited this excluido from being saved:</h2>
+
+      <ul>
+      <% excluido.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dado %>
+    <%= f.text_field :dado %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

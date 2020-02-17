@@ -1,0 +1,23 @@
+<div class="panel collapse" id=collapse1> 
+<div class="panel-heading"><strong> Consulta  </strong></div>
+<div class="panel-body">
+<%= form_tag( exp_profs_path, method: "get",  :class => "form-inline") do %>
+<div class="col-md-2">
+    <%= label_tag(:empresa, "Nome da Empresa:") %>
+    <%= text_field_tag( :pempresa, @pempresa, size: 25, class: 'form-control') %>
+</div>
+<div class="col-md-2">
+  	<%= label_tag(:pcargo, "Nome do Cargo:") %>
+    <%= text_field_tag( :pcargo, @pcargo, size: 25, class: 'form-control') %>
+</div>
+<div class="col-md-2">
+    <%= label_tag(:pegresso, "Nome do Egresso:") %>
+    <%= text_field_tag( :pegresso, @pegresso, size: 25, class: 'form-control') %>
+</div>
+<div class="col-md-2">  
+    <%= submit_tag "Filtrar" , class: "btn btn-success",style: 'position: relative; bottom: -27px;' %>
+</div>
+<% end %>
+
+</div>
+</div>

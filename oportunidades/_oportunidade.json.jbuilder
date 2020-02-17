@@ -1,0 +1,2 @@
+json.extract! oportunidade, :id, :cnpj_id, :curso, :requisitos, :salario, :observacoes, :local_inscricao, :fim_oferta, :ini_oferta, :tipo_oferta, :created_at, :updated_at
+json.url oportunidade_url(oportunidade, format: :json)

@@ -1,0 +1,1 @@
+json.array! @excluidos, partial: 'excluidos/excluido', as: :excluido

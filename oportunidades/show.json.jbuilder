@@ -1,0 +1,1 @@
+json.partial! "oportunidades/oportunidade", oportunidade: @oportunidade
