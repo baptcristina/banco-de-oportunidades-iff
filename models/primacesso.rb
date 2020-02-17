@@ -1,0 +1,2 @@
+class Primacesso < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class DivulgaAvulsa < ApplicationRecord
+end
