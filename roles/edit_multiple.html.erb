@@ -1,0 +1,20 @@
+<%= form_tag update_multiple_roles_path, method: :put do %>
+  <table>
+    <tr>
+      <th></th>
+      <% @permissions.each do |permission| %>
+        <th><%= permission.name %></th>
+      <% end %>
+    </tr>
+    <% @roles.each do |role| %>
+      <tr>
+        <th><%= role.name %></th>
+        <% @permissions.each do |permission| %>
+          <td><%= check_box_tag "roles[#{role.id}][permission_ids][]", permission.id, role.permissions.include?(permission) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= submit_tag "Save" %>
+<% end %>

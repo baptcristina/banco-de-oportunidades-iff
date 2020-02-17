@@ -1,0 +1,1 @@
+json.array! @questionario_egressos, partial: 'questionario_egressos/questionario_egresso', as: :questionario_egresso

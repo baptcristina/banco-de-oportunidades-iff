@@ -1,0 +1,1 @@
+json.partial! "questionario_egressos/questionario_egresso", questionario_egresso: @questionario_egresso

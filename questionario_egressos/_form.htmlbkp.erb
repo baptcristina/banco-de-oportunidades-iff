@@ -1,0 +1,1581 @@
+<%= form_for(questionario_egresso) do |f| %>
+  <% if questionario_egresso.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(questionario_egresso.errors.count, "error") %> prohibited this questionario_egresso from being saved:</h2>
+
+      <ul>
+      <% questionario_egresso.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="container">
+<div class="form-group col-md-2"></div>
+<div class="form-group col-md-8">
+<div class="panel"> 
+  <div class="panel-heading"><strong>Sobre o Curso e Sobre as Oportunidades de Trabalho</strong></div>
+
+<% if current_admin.try(:super?) %> <!-- é admin? -->
+
+  <div class="panel-body">Sua avaliação é muito importante! Este questionário ajudará a melhorar a oferta de atividades para os estudantes e promover aperfeiçoamento profissional para VOCÊ e todos os egressos de nossos cursos.
+  <div class="table-responsive">
+
+  <form class="form-horizontal ">
+
+  <% if @questionario_egresso.egresso_id? %>  <!-- estou editando ou é novo? -->
+  
+  <table class="table">
+    <tr>
+      <td>
+           <div class="panel-heading"><h3 style= "text-align: center"><strong> SOBRE O CURSO</strong></h3></div>           
+              <li><p><strong>Defina o seu grau de satisfação em relação às atividades oferecidas no curso:</strong></p></li> 
+              <div class="form-group col-md-12"></div>
+                <div class="form-group  col-md-4"> 
+              <%= f.label :egresso_id , "CPF"%>
+              <%= f.select :egresso_id, options_for_select(Egresso.all.map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control' %>
+              </div>
+              </div>
+            
+            <div class="form-group col-md-12">
+              <table class="table table-condensed table-striped">
+                <tr height=20>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_palestras , "Palestras" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_oficina , "Oficinas" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_minicurso , "Minicursos" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_seminario , "Seminários" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_vis_tec , "Visitas Técnicas" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_estagio , "Estágio" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Nunca soube da oferta"%> Nunca soube da oferta </label>
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+                      
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_prat_prof , "Prática Profisional" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_bolsas , "Bolsas Institucionais" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_est_dur_curso , "Você realizou atividade de estágio durante o curso?" %><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Sim" %> <strong>Sim</strong><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Não" %> <strong>Não</strong><br>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_empresa_pq_nao, "Se sim, qual(is) empresa(s)? Se não, por que não foi realizado o estágio?" %><br>
+                  <%= f.text_field :ia_empresa_pq_nao , class: 'form-control'  %>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12"></div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_avalia_curso , "De uma forma geral, como você avalia o curso realizado?" %><br>
+                  <%= f.radio_button :ia_avalia_curso, "Excelente" %> <strong>Excelente</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Bom" %> <strong>Bom</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Regular" %> <strong>Regular</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Ruim" %> <strong>Ruim</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Péssimo" %> <strong>Péssimo</strong><br>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12"></div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_nessec_atlzr , "Você sente necessidade de se atualizar na área de sua formação?" %><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Sim" %> <strong>Sim</strong><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Não" , checked: true %> <strong>Não</strong><br>
+                </div>
+              </div>
+
+              
+
+              <% if @ia_nessec_atlzr == 'Não' %>
+                  <div class="form-group col-md-12">
+                    <div class="form">
+                      <%= f.label :ia_fazer_atlzr , "O que você sente necessidade de fazer para se atualizar na área de sua formação?" %><br>
+                      <%= f.text_field :ia_fazer_atlzr, class: 'form-control', disabled: true %>
+                    </div>
+                  </div>
+                
+              <% else %>
+                  <div class="form-group col-md-12">
+                    <div class="form">
+                      <%= f.label :ia_fazer_atlzr , "O que você sente necessidade de fazer para se atualizar na área de sua formação?" %><br>
+                      <%= f.text_field :ia_fazer_atlzr, class: 'form-control' %>
+                    </div>
+                  </div> 
+                    
+              <% end %>
+      </td>
+    </tr>
+    
+    <tr>
+      <td>
+        <h3 style= "text-align: center"><strong>SITUAÇÃO ATUAL E INFORMAÇÕES PROFISSIONAIS</strong></h3>
+            
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_esta_inst , "Você está estudando na instituição?" %><br>
+                <%= f.radio_button :saip_esta_inst, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_esta_inst, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_back_inst , "Você voltaria à instituição?" %><br>
+                <%= f.radio_button :saip_back_inst, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_back_inst, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_curso_atual , "O que você está estudando na instituição?" %><br>
+                <%= f.text_field :saip_curso_atual , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_pqnao_back , "Por que você não voltaria à instituição?" %><br>
+                <%= f.text_field :saip_pqnao_back , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_trab_atual , "Você está trabalhando atualmente?" %><br>
+                <%= f.radio_button :saip_trab_atual, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_trab_atual, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_trab_area , "Você trabalha na área que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_trab_area, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_trab_area, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_tempo , "Há quanto tempo?" %><br>
+                <%= f.radio_button :saip_tempo, "Menos de 1 ano" %> <strong>Menos de 1 ano</strong><br>
+                <%= f.radio_button :saip_tempo, "De 1 a 2 anos" %> <strong>De 1 a 2 anos</strong><br>
+                <%= f.radio_button :saip_tempo, "De 2 a 5 anos" %> <strong>De 2 a 5 anos</strong><br>
+                <%= f.radio_button :saip_tempo, "Mais de 5 anos" %> <strong>Mais de 5 anos</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_vinculo , "Qual seu vínculo empregatício?" %><br>
+                <%= f.radio_button :saip_vinculo, "Autônomo ou prestador de serviço" %> <strong>Autônomo ou prestador de serviço</strong><br>
+                <%= f.radio_button :saip_vinculo, "Empregado de carteira assinada" %> <strong>Empregado de carteira assinada</strong><br>
+                <%= f.radio_button :saip_vinculo, "Em contrato temporário" %> <strong>Em contrato temporário</strong><br>
+                <%= f.radio_button :saip_vinculo, "Funcionário público" %> <strong>Funcionário público</strong><br>
+                <%= f.radio_button :saip_vinculo, "Proprietário de empresa ou negócio" %> <strong>Proprietário de empresa ou negócio</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">
+              <div class="form">
+                <%= f.label :saip_local , "Onde está localizado o seu trabalho?" %><br>
+                <%= f.radio_button :saip_local, "No próprio município onde realizou o curso" %> <strong>No próprio município onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Com distância de até 50 km de onde realizou o curso" %> <strong>Com distância de até 50 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância entre 50 e 100 km de onde realizou o curso" %> <strong>Em um município com distância entre 50 e 100 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância entre 100 e 400 km de onde realizou o curso" %> <strong>Em um município com distância entre 100 e 400 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância superior a 400 km de onde realizou o curso" %> <strong>Em um município com distância superior a 400 km de onde realizou o curso</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">
+              <div class="form">
+                <%= f.label :saip_renda , "Qual a sua faixa de renda mensal com base no Salário Mínimo Nacional (SMN) vigente (R$ 880,00)?" %><br>
+                 <%= f.radio_button :saip_tempo, "De 1 SMN a 2 SMN" %> <strong>De 1 SMN a 2 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 2 SMN a 3 SMN" %> <strong>De 2 SMN a 3 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 3 SMN a 4 SMN" %> <strong>De 3 SMN a 4 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 4 SMN a 5 SMN" %> <strong>De 4 SMN a 5 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "Mais de 5 SMN" %> <strong>Mais de 5 SMN</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_ja_trab , "Já trabalhou na área em que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_ja_trab, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_ja_trab, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_prim_oport , "Você conseguiu sua primeira oportunidade de emprego na área de formação através de:" %><br>
+                <%= f.radio_button :saip_prim_oport, "Familiares/Amigos" %> <strong>Familiares/Amigos</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Sites de agenciadores" %> <strong>Sites de agenciadores</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Jornal/Revista/Rádio" %> <strong>Jornal/Revista/Rádio</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Sites de empresas" %> <strong>Sites de empresas</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Ofertas de empresas parceiras da instituição" %> <strong>Ofertas de empresas parceiras da instituição</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Iniciativa própria" %> <strong>Iniciativa própria</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_pq_nao_esta , "Por que você não está trabalhando na área de formação?" %><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Porque não encontrei trabalho na área de formação" %> <strong>Porque não encontrei trabalho na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Os salários são muito baixos em relação a outras áreas" %> <strong>Os salários são muito baixos em relação a outras áreas</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "AS empresas exigiam experiência profissional" %> <strong>AS empresas exigiam experiência profissional</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "A formação que recebi não atendeu às exigências do mercado" %> <strong>A formação que recebi não atendeu às exigências do mercado</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Não me senti seguro para trabalhar na área" %> <strong>Não me senti seguro para trabalhar na área</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Não encontrei oferta de vagas na área de formação" %> <strong>Não encontrei oferta de vagas na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Fiz a escolha vocacional errada" %> <strong>Fiz a escolha vocacional errada</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Encontrei discriminação em relação ao gênero exigido para a função" %> <strong>Encontrei discriminação em relação ao gênero exigido para a função</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Porque continuei meus estudos" %> <strong>Porque continuei meus estudos</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Outro" %> <strong>Outro:</strong>
+                <%= f.text_field :saip_pq_nao_esta , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_pq_nunca , "Por que você nunca trabalhou na área em que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_pq_nunca, "Porque não encontrei trabalho na área de formação" %> <strong>Porque não encontrei trabalho na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Os salários são muito baixos em relação a outras áreas" %> <strong>Os salários são muito baixos em relação a outras áreas</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "AS empresas exigiam experiência profissional" %> <strong>AS empresas exigiam experiência profissional</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "A formação que recebi não atendeu às exigências do mercado" %> <strong>A formação que recebi não atendeu às exigências do mercado</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Não me senti seguro para trabalhar na área" %> <strong>Não me senti seguro para trabalhar na área</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Não encontrei oferta de vagas na área de formação" %> <strong>Não encontrei oferta de vagas na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Fiz a escolha vocacional errada" %> <strong>Fiz a escolha vocacional errada</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Encontrei discriminação em relação ao gênero exigido para a função" %> <strong>Encontrei discriminação em relação ao gênero exigido para a função</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Porque continuei meus estudos" %> <strong>Porque continuei meus estudos</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Outro" %> <strong>Outro:</strong>
+                <%= f.text_field :saip_pq_nunca , class: 'form-control' %>
+              </div>
+            </div>
+      </td>
+    </tr>
+  </table> 
+</form>
+</div>
+</div>
+</div>
+</div>
+
+
+<% else %> <!-- novo -->
+
+
+<table class="table">
+    <tr>
+      <td>
+           <div class="panel-heading"><h3 style= "text-align: center"><strong>SOBRE O CURSO</strong></h3></div>           
+ 
+              <div class="form-group col-md-12"></div>
+              <li><p><strong>Defina o seu grau de satisfação em relação às atividades oferecidas no curso:</strong></p></li>
+              <div class="form-group col-md-12"></div>
+
+                <div class="form-group  col-md-4"> 
+              <%= f.label :egresso_id , "CPF"%>
+              <%= f.select :egresso_id, options_for_select(Egresso.all.map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control' %>
+              </div>
+         
+            <div class="form-group col-md-12">
+              <table class="table table-condensed table-striped">
+                <tr height=20>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_palestras , "Palestras" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_oficina , "Oficinas" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_minicurso , "Minicursos" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_seminario , "Seminários" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_vis_tec , "Visitas Técnicas" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_estagio , "Estágio" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Nunca soube da oferta"%> Nunca soube da oferta </label>
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+                      
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_prat_prof , "Prática Profisional" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_bolsas , "Bolsas Institucionais" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_est_dur_curso , "Você realizou atividade de estágio durante o curso?" %><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Sim" %> <strong>Sim</strong><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Não" %> <strong>Não</strong><br>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_empresa_pq_nao, "Se sim, qual(is) empresa(s)? Se não, por que não foi realizado o estágio?" %><br>
+                  <%= f.text_field :ia_empresa_pq_nao , class: 'form-control'  %>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12"></div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_avalia_curso , "De uma forma geral, como você avalia o curso realizado?" %><br>
+                  <%= f.radio_button :ia_avalia_curso, "Excelente" %> <strong>Excelente</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Bom" %> <strong>Bom</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Regular" %> <strong>Regular</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Ruim" %> <strong>Ruim</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Péssimo" %> <strong>Péssimo</strong><br>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12"></div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_nessec_atlzr , "Você sente necessidade de se atualizar na área de sua formação?" %><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Sim" %> <strong>Sim</strong><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Não" , checked: true %> <strong>Não</strong><br>
+                </div>
+              </div>
+
+              
+
+              <% if @ia_nessec_atlzr == 'Não' %>
+                  <div class="form-group col-md-12">
+                    <div class="form">
+                      <%= f.label :ia_fazer_atlzr , "O que você sente necessidade de fazer para se atualizar na área de sua formação?" %><br>
+                      <%= f.text_field :ia_fazer_atlzr, class: 'form-control', disabled: true %>
+                    </div>
+                  </div>
+                
+              <% else %>
+                  <div class="form-group col-md-12">
+                    <div class="form">
+                      <%= f.label :ia_fazer_atlzr , "O que você sente necessidade de fazer para se atualizar na área de sua formação?" %><br>
+                      <%= f.text_field :ia_fazer_atlzr, class: 'form-control' %>
+                    </div>
+                  </div> 
+                    
+              <% end %>
+      </td>
+    </tr>
+    
+    <tr>
+      <td>
+        <h3 style= "text-align: center"><strong>SITUAÇÃO ATUAL E INFORMAÇÕES PROFISSIONAIS</strong></h3>
+            
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_esta_inst , "Você está estudando na instituição?" %><br>
+                <%= f.radio_button :saip_esta_inst, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_esta_inst, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_back_inst , "Você voltaria à instituição?" %><br>
+                <%= f.radio_button :saip_back_inst, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_back_inst, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_curso_atual , "O que você está estudando na instituição?" %><br>
+                <%= f.text_field :saip_curso_atual , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_pqnao_back , "Por que você não voltaria à instituição?" %><br>
+                <%= f.text_field :saip_pqnao_back , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_trab_atual , "Você está trabalhando atualmente?" %><br>
+                <%= f.radio_button :saip_trab_atual, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_trab_atual, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_trab_area , "Você trabalha na área que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_trab_area, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_trab_area, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_tempo , "Há quanto tempo?" %><br>
+                <%= f.radio_button :saip_tempo, "Menos de 1 ano" %> <strong>Menos de 1 ano</strong><br>
+                <%= f.radio_button :saip_tempo, "De 1 a 2 anos" %> <strong>De 1 a 2 anos</strong><br>
+                <%= f.radio_button :saip_tempo, "De 2 a 5 anos" %> <strong>De 2 a 5 anos</strong><br>
+                <%= f.radio_button :saip_tempo, "Mais de 5 anos" %> <strong>Mais de 5 anos</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_vinculo , "Qual seu vínculo empregatício?" %><br>
+                <%= f.radio_button :saip_vinculo, "Autônomo ou prestador de serviço" %> <strong>Autônomo ou prestador de serviço</strong><br>
+                <%= f.radio_button :saip_vinculo, "Empregado de carteira assinada" %> <strong>Empregado de carteira assinada</strong><br>
+                <%= f.radio_button :saip_vinculo, "Em contrato temporário" %> <strong>Em contrato temporário</strong><br>
+                <%= f.radio_button :saip_vinculo, "Funcionário público" %> <strong>Funcionário público</strong><br>
+                <%= f.radio_button :saip_vinculo, "Proprietário de empresa ou negócio" %> <strong>Proprietário de empresa ou negócio</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">
+              <div class="form">
+                <%= f.label :saip_local , "Onde está localizado o seu trabalho?" %><br>
+                <%= f.radio_button :saip_local, "No próprio município onde realizou o curso" %> <strong>No próprio município onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Com distância de até 50 km de onde realizou o curso" %> <strong>Com distância de até 50 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância entre 50 e 100 km de onde realizou o curso" %> <strong>Em um município com distância entre 50 e 100 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância entre 100 e 400 km de onde realizou o curso" %> <strong>Em um município com distância entre 100 e 400 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância superior a 400 km de onde realizou o curso" %> <strong>Em um município com distância superior a 400 km de onde realizou o curso</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">
+              <div class="form">
+                <%= f.label :saip_renda , "Qual a sua faixa de renda mensal com base no Salário Mínimo Nacional (SMN) vigente (R$ 880,00)?" %><br>
+                 <%= f.radio_button :saip_tempo, "De 1 SMN a 2 SMN" %> <strong>De 1 SMN a 2 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 2 SMN a 3 SMN" %> <strong>De 2 SMN a 3 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 3 SMN a 4 SMN" %> <strong>De 3 SMN a 4 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 4 SMN a 5 SMN" %> <strong>De 4 SMN a 5 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "Mais de 5 SMN" %> <strong>Mais de 5 SMN</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_ja_trab , "Já trabalhou na área em que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_ja_trab, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_ja_trab, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_prim_oport , "Você conseguiu sua primeira oportunidade de emprego na área de formação através de:" %><br>
+                <%= f.radio_button :saip_prim_oport, "Familiares/Amigos" %> <strong>Familiares/Amigos</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Sites de agenciadores" %> <strong>Sites de agenciadores</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Jornal/Revista/Rádio" %> <strong>Jornal/Revista/Rádio</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Sites de empresas" %> <strong>Sites de empresas</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Ofertas de empresas parceiras da instituição" %> <strong>Ofertas de empresas parceiras da instituição</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Iniciativa própria" %> <strong>Iniciativa própria</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_pq_nao_esta , "Por que você não está trabalhando na área de formação?" %><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Porque não encontrei trabalho na área de formação" %> <strong>Porque não encontrei trabalho na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Os salários são muito baixos em relação a outras áreas" %> <strong>Os salários são muito baixos em relação a outras áreas</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "AS empresas exigiam experiência profissional" %> <strong>AS empresas exigiam experiência profissional</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "A formação que recebi não atendeu às exigências do mercado" %> <strong>A formação que recebi não atendeu às exigências do mercado</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Não me senti seguro para trabalhar na área" %> <strong>Não me senti seguro para trabalhar na área</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Não encontrei oferta de vagas na área de formação" %> <strong>Não encontrei oferta de vagas na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Fiz a escolha vocacional errada" %> <strong>Fiz a escolha vocacional errada</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Encontrei discriminação em relação ao gênero exigido para a função" %> <strong>Encontrei discriminação em relação ao gênero exigido para a função</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Porque continuei meus estudos" %> <strong>Porque continuei meus estudos</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Outro" %> <strong>Outro:</strong>
+                <%= f.text_field :saip_pq_nao_esta , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_pq_nunca , "Por que você nunca trabalhou na área em que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_pq_nunca, "Porque não encontrei trabalho na área de formação" %> <strong>Porque não encontrei trabalho na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Os salários são muito baixos em relação a outras áreas" %> <strong>Os salários são muito baixos em relação a outras áreas</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "AS empresas exigiam experiência profissional" %> <strong>AS empresas exigiam experiência profissional</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "A formação que recebi não atendeu às exigências do mercado" %> <strong>A formação que recebi não atendeu às exigências do mercado</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Não me senti seguro para trabalhar na área" %> <strong>Não me senti seguro para trabalhar na área</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Não encontrei oferta de vagas na área de formação" %> <strong>Não encontrei oferta de vagas na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Fiz a escolha vocacional errada" %> <strong>Fiz a escolha vocacional errada</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Encontrei discriminação em relação ao gênero exigido para a função" %> <strong>Encontrei discriminação em relação ao gênero exigido para a função</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Porque continuei meus estudos" %> <strong>Porque continuei meus estudos</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Outro" %> <strong>Outro:</strong>
+                <%= f.text_field :saip_pq_nunca , class: 'form-control' %>
+              </div>
+            </div>
+      </td>
+    </tr>
+  </table> 
+
+</div>
+</div>
+
+<% end %>
+
+<div class="form-group col-md-12">
+  <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', :back, class: 'btn  btn-danger btn3d'  %>
+      <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+     </div>
+  </div>
+</div>
+
+
+<%else%> <!-- é usuário! -->
+
+  <% if @questionario_egresso.egresso_id? %>  <!-- estou editando ou é novo? -->
+  
+  <table class="table">
+    <tr>
+      <td>
+           <div class="panel-heading"><h3 style= "text-align: center"><strong> SOBRE O CURSO</strong></h3></div>           
+              <li><p><strong>Defina o seu grau de satisfação em relação às atividades oferecidas no curso:</strong></p></li> 
+              <div class="form-group  col-md-4"  > 
+                  <%= f.label :egresso_id , "CPF"%>
+                  <%= f.select :egresso_id, options_for_select(Egresso.where(cpf: current_user.egresso.cpf).map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control'%>
+                  <%= f.text_field :realizado, value: 'true' %>
+                  <%= f.select :form_acad_id, options_for_select(FormAcad.where(id: params[:form_acad_id]).map{|m| [m.nome_curso,m.id]},f.object.form_acad_id), {disabled: true}, class: 'selectpicker form-control'%>
+                </div>
+
+
+            <div class="form-group col-md-12 collapse" id=collapse1>
+              <table class="table table-condensed table-striped">
+                <tr height=20>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_palestras , "Palestras" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_oficina , "Oficinas" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_minicurso , "Minicursos" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_seminario , "Seminários" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_vis_tec , "Visitas Técnicas" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_estagio , "Estágio" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Nunca soube da oferta"%> Nunca soube da oferta </label>
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+                      
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_prat_prof , "Prática Profisional" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_bolsas , "Bolsas Institucionais" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_est_dur_curso , "Você realizou atividade de estágio durante o curso?" %><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Sim" %> <strong>Sim</strong><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Não" %> <strong>Não</strong><br>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_empresa_pq_nao, "Se sim, qual(is) empresa(s)? Se não, por que não foi realizado o estágio?" %><br>
+                  <%= f.text_field :ia_empresa_pq_nao , class: 'form-control'  %>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12"></div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_avalia_curso , "De uma forma geral, como você avalia o curso realizado?" %><br>
+                  <%= f.radio_button :ia_avalia_curso, "Excelente" %> <strong>Excelente</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Bom" %> <strong>Bom</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Regular" %> <strong>Regular</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Ruim" %> <strong>Ruim</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Péssimo" %> <strong>Péssimo</strong><br>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12"></div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_nessec_atlzr , "Você sente necessidade de se atualizar na área de sua formação?" %><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Sim" %> <strong>Sim</strong><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Não" , checked: true %> <strong>Não</strong><br>
+                </div>
+              </div>
+
+              
+
+              <% if @ia_nessec_atlzr == 'Não' %>
+                  <div class="form-group col-md-12">
+                    <div class="form">
+                      <%= f.label :ia_fazer_atlzr , "O que você sente necessidade de fazer para se atualizar na área de sua formação?" %><br>
+                      <%= f.text_field :ia_fazer_atlzr, class: 'form-control', disabled: true %>
+                    </div>
+                  </div>
+                
+              <% else %>
+                  <div class="form-group col-md-12">
+                    <div class="form">
+                      <%= f.label :ia_fazer_atlzr , "O que você sente necessidade de fazer para se atualizar na área de sua formação?" %><br>
+                      <%= f.text_field :ia_fazer_atlzr, class: 'form-control' %>
+                    </div>
+                  </div> 
+                    
+              <% end %>
+      </td>
+    </tr>
+    
+    <tr>
+      <td>
+        <h3 style= "text-align: center"><strong>SITUAÇÃO ATUAL E INFORMAÇÕES PROFISSIONAIS</strong></h3>
+            
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_esta_inst , "Você está estudando na instituição?" %><br>
+                <%= f.radio_button :saip_esta_inst, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_esta_inst, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_back_inst , "Você voltaria à instituição?" %><br>
+                <%= f.radio_button :saip_back_inst, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_back_inst, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_curso_atual , "O que você está estudando na instituição?" %><br>
+                <%= f.text_field :saip_curso_atual , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_pqnao_back , "Por que você não voltaria à instituição?" %><br>
+                <%= f.text_field :saip_pqnao_back , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_trab_atual , "Você está trabalhando atualmente?" %><br>
+                <%= f.radio_button :saip_trab_atual, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_trab_atual, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_trab_area , "Você trabalha na área que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_trab_area, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_trab_area, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_tempo , "Há quanto tempo?" %><br>
+                <%= f.radio_button :saip_tempo, "Menos de 1 ano" %> <strong>Menos de 1 ano</strong><br>
+                <%= f.radio_button :saip_tempo, "De 1 a 2 anos" %> <strong>De 1 a 2 anos</strong><br>
+                <%= f.radio_button :saip_tempo, "De 2 a 5 anos" %> <strong>De 2 a 5 anos</strong><br>
+                <%= f.radio_button :saip_tempo, "Mais de 5 anos" %> <strong>Mais de 5 anos</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_vinculo , "Qual seu vínculo empregatício?" %><br>
+                <%= f.radio_button :saip_vinculo, "Autônomo ou prestador de serviço" %> <strong>Autônomo ou prestador de serviço</strong><br>
+                <%= f.radio_button :saip_vinculo, "Empregado de carteira assinada" %> <strong>Empregado de carteira assinada</strong><br>
+                <%= f.radio_button :saip_vinculo, "Em contrato temporário" %> <strong>Em contrato temporário</strong><br>
+                <%= f.radio_button :saip_vinculo, "Funcionário público" %> <strong>Funcionário público</strong><br>
+                <%= f.radio_button :saip_vinculo, "Proprietário de empresa ou negócio" %> <strong>Proprietário de empresa ou negócio</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">
+              <div class="form">
+                <%= f.label :saip_local , "Onde está localizado o seu trabalho?" %><br>
+                <%= f.radio_button :saip_local, "No próprio município onde realizou o curso" %> <strong>No próprio município onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Com distância de até 50 km de onde realizou o curso" %> <strong>Com distância de até 50 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância entre 50 e 100 km de onde realizou o curso" %> <strong>Em um município com distância entre 50 e 100 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância entre 100 e 400 km de onde realizou o curso" %> <strong>Em um município com distância entre 100 e 400 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância superior a 400 km de onde realizou o curso" %> <strong>Em um município com distância superior a 400 km de onde realizou o curso</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">
+              <div class="form">
+                <%= f.label :saip_renda , "Qual a sua faixa de renda mensal com base no Salário Mínimo Nacional (SMN) vigente (R$ 880,00)?" %><br>
+                 <%= f.radio_button :saip_tempo, "De 1 SMN a 2 SMN" %> <strong>De 1 SMN a 2 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 2 SMN a 3 SMN" %> <strong>De 2 SMN a 3 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 3 SMN a 4 SMN" %> <strong>De 3 SMN a 4 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 4 SMN a 5 SMN" %> <strong>De 4 SMN a 5 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "Mais de 5 SMN" %> <strong>Mais de 5 SMN</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_ja_trab , "Já trabalhou na área em que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_ja_trab, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_ja_trab, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_prim_oport , "Você conseguiu sua primeira oportunidade de emprego na área de formação através de:" %><br>
+                <%= f.radio_button :saip_prim_oport, "Familiares/Amigos" %> <strong>Familiares/Amigos</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Sites de agenciadores" %> <strong>Sites de agenciadores</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Jornal/Revista/Rádio" %> <strong>Jornal/Revista/Rádio</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Sites de empresas" %> <strong>Sites de empresas</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Ofertas de empresas parceiras da instituição" %> <strong>Ofertas de empresas parceiras da instituição</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Iniciativa própria" %> <strong>Iniciativa própria</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_pq_nao_esta , "Por que você não está trabalhando na área de formação?" %><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Porque não encontrei trabalho na área de formação" %> <strong>Porque não encontrei trabalho na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Os salários são muito baixos em relação a outras áreas" %> <strong>Os salários são muito baixos em relação a outras áreas</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "AS empresas exigiam experiência profissional" %> <strong>AS empresas exigiam experiência profissional</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "A formação que recebi não atendeu às exigências do mercado" %> <strong>A formação que recebi não atendeu às exigências do mercado</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Não me senti seguro para trabalhar na área" %> <strong>Não me senti seguro para trabalhar na área</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Não encontrei oferta de vagas na área de formação" %> <strong>Não encontrei oferta de vagas na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Fiz a escolha vocacional errada" %> <strong>Fiz a escolha vocacional errada</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Encontrei discriminação em relação ao gênero exigido para a função" %> <strong>Encontrei discriminação em relação ao gênero exigido para a função</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Porque continuei meus estudos" %> <strong>Porque continuei meus estudos</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Outro" %> <strong>Outro:</strong>
+                <%= f.text_field :saip_pq_nao_esta , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_pq_nunca , "Por que você nunca trabalhou na área em que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_pq_nunca, "Porque não encontrei trabalho na área de formação" %> <strong>Porque não encontrei trabalho na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Os salários são muito baixos em relação a outras áreas" %> <strong>Os salários são muito baixos em relação a outras áreas</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "AS empresas exigiam experiência profissional" %> <strong>AS empresas exigiam experiência profissional</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "A formação que recebi não atendeu às exigências do mercado" %> <strong>A formação que recebi não atendeu às exigências do mercado</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Não me senti seguro para trabalhar na área" %> <strong>Não me senti seguro para trabalhar na área</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Não encontrei oferta de vagas na área de formação" %> <strong>Não encontrei oferta de vagas na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Fiz a escolha vocacional errada" %> <strong>Fiz a escolha vocacional errada</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Encontrei discriminação em relação ao gênero exigido para a função" %> <strong>Encontrei discriminação em relação ao gênero exigido para a função</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Porque continuei meus estudos" %> <strong>Porque continuei meus estudos</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Outro" %> <strong>Outro:</strong>
+                <%= f.text_field :saip_pq_nunca , class: 'form-control' %>
+              </div>
+            </div>
+      </td>
+    </tr>
+  </table> 
+
+</div>
+</div>
+</div>
+</div>
+
+
+<% else %> <!-- novo -->
+
+
+<table class="table">
+    <tr>
+      <td>
+           <div class="panel-heading"><h3 style= "text-align: center"><strong>SOBRE O CURSO</strong></h3></div>           
+ 
+              <div class="form-group col-md-12"></div>
+              <li><p><strong>Defina o seu grau de satisfação em relação às atividades oferecidas no curso:</strong></p></li>
+              <div class="form-group col-md-12"></div>
+
+              <div class="form-group  col-md-4"  style="display: none;"> 
+                  <%= f.label :egresso_id , "CPF"%>
+                  <%= f.select :egresso_id, options_for_select(Egresso.where(cpf: current_user.egresso.cpf).map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control'%>
+                  <%= f.text_field :realizado, value: 'true' %>
+                  <%= f.select :form_acad_id, options_for_select(FormAcad.where(egresso_id: current_user.egresso_id).map{|m| [m.nome_curso,m.id]},f.object.form_acad_id), {disabled: true}, class: 'selectpicker form-control'%>
+                </div>
+         
+            <div class="form-group col-md-12">
+              <table class="table table-condensed table-striped">
+                <tr height=20>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_palestras , "Palestras" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_palestras, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_oficina , "Oficinas" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_oficina, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="form-group col-md-12">
+                      <div class="form-group col-md-2">
+                        <%= f.label :ia_satisf_minicurso , "Minicursos" %>
+                      </div>
+                      <div class="col-md-10">
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Suficiente"%> Suficiente </label> 
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Regular"%> Regular </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Insuficiente"%> Insuficiente </label>
+                        <label class="radio-inline"><%= f.radio_button :ia_satisf_minicurso, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_seminario , "Seminários" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_seminario, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_vis_tec , "Visitas Técnicas" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_vis_tec, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_estagio , "Estágio" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_estagio, "Nunca soube da oferta"%> Nunca soube da oferta </label>
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+                      
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_prat_prof , "Prática Profisional" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_prat_prof, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                      <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                          <%= f.label :ia_satisf_bolsas , "Bolsas Institucionais" %>
+                        </div>
+                          <div class="col-md-10">
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Suficiente"%> Suficiente </label> 
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Regular"%> Regular </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Insuficiente"%> Insuficiente </label>
+                            <label class="radio-inline"><%= f.radio_button :ia_satisf_bolsas, "Nunca soube da oferta"%> Nunca soube da oferta </label> 
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+              <div class="form-group col-md-12" >
+                <div class="form">
+                  <%= f.label :ia_est_dur_curso , "Você realizou atividade de estágio durante o curso?" %><br>
+                  <%= f.radio_button :ia_est_dur_curso, "Sim", value: "s", id:"opcao", onclick: 'togglediv()' %> <strong>Sim</strong><br>
+                  <%= f.radio_button :ia_est_dur_curso, "Não", value: "n", id:"opcao1", onclick: 'togglediv()'  %> <strong>Não</strong><br>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12" id=divs>
+                <div class="form" >
+                  <%= f.label :ia_empresa_pq_nao, "Se sim, qual(is) empresa(s)? Se não, por que não foi realizado o estágio?"%><br>
+                  <%= f.text_field :ia_empresa_pq_nao , class: 'form-control'  %>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12"></div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_avalia_curso , "De uma forma geral, como você avalia o curso realizado?" %><br>
+                  <%= f.radio_button :ia_avalia_curso, "Excelente" %> <strong>Excelente</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Bom" %> <strong>Bom</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Regular" %> <strong>Regular</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Ruim" %> <strong>Ruim</strong><br>
+                  <%= f.radio_button :ia_avalia_curso, "Péssimo" %> <strong>Péssimo</strong><br>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12"></div>
+
+              <div class="form-group col-md-12">
+                <div class="form">
+                  <%= f.label :ia_nessec_atlzr , "Você sente necessidade de se atualizar na área de sua formação?" %><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Sim" %> <strong>Sim</strong><br>
+                  <%= f.radio_button :ia_nessec_atlzr, "Não" , checked: true %> <strong>Não</strong><br>
+                </div>
+              </div>
+
+              
+
+              <% if @ia_nessec_atlzr == 'Não' %>
+                  <div class="form-group col-md-12">
+                    <div class="form">
+                      <%= f.label :ia_fazer_atlzr , "O que você sente necessidade de fazer para se atualizar na área de sua formação?" %><br>
+                      <%= f.text_field :ia_fazer_atlzr, class: 'form-control', disabled: true %>
+                    </div>
+                  </div>
+                
+              <% else %>
+                  <div class="form-group col-md-12">
+                    <div class="form">
+                      <%= f.label :ia_fazer_atlzr , "O que você sente necessidade de fazer para se atualizar na área de sua formação?" %><br>
+                      <%= f.text_field :ia_fazer_atlzr, class: 'form-control' %>
+                    </div>
+                  </div> 
+                    
+              <% end %>
+      </td>
+    </tr>
+    
+    <tr>
+      <td>
+        <h3 style= "text-align: center"><strong>SITUAÇÃO ATUAL E INFORMAÇÕES PROFISSIONAIS</strong></h3>
+            
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_esta_inst , "Você está estudando na instituição?" %><br>
+                <%= f.radio_button :saip_esta_inst, "Sim", id: 'opcao_sim', onclick: 'mostrar_campo()'%> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_esta_inst, "Não",  id: 'opcao_nao', onclick: 'mostrar_campo()'%> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6" style= "display: none" id=voltaria>
+              <div class="form">
+                <%= f.label :saip_back_inst , "Você voltaria à instituição?" %><br>
+                <%= f.radio_button :saip_back_inst, "Sim"%> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_back_inst, "Não", id: 'opcao_voltaria', onclick: 'nao_voltaria()' %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6"  style= "display: none" id=estudando>
+              <div class="form">
+                <%= f.label :saip_curso_atual , "O que você está estudando na instituição?" %><br>
+                <%= f.text_field :saip_curso_atual , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6"  style= "display: none" id=pq_nao_voltaria>
+              <div class="form">
+                <%= f.label :saip_pqnao_back , "Por que você não voltaria à instituição?" %><br>
+                <%= f.text_field :saip_pqnao_back , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_trab_atual , "Você está trabalhando atualmente?" %><br>
+                <%= f.radio_button :saip_trab_atual, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_trab_atual, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_trab_area , "Você trabalha na área que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_trab_area, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_trab_area, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-6">
+              <div class="form">
+                <%= f.label :saip_tempo , "Há quanto tempo?" %><br>
+                <%= f.radio_button :saip_tempo, "Menos de 1 ano" %> <strong>Menos de 1 ano</strong><br>
+                <%= f.radio_button :saip_tempo, "De 1 a 2 anos" %> <strong>De 1 a 2 anos</strong><br>
+                <%= f.radio_button :saip_tempo, "De 2 a 5 anos" %> <strong>De 2 a 5 anos</strong><br>
+                <%= f.radio_button :saip_tempo, "Mais de 5 anos" %> <strong>Mais de 5 anos</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">  
+              <div class="form">
+                <%= f.label :saip_vinculo , "Qual seu vínculo empregatício?" %><br>
+                <%= f.radio_button :saip_vinculo, "Autônomo ou prestador de serviço" %> <strong>Autônomo ou prestador de serviço</strong><br>
+                <%= f.radio_button :saip_vinculo, "Empregado de carteira assinada" %> <strong>Empregado de carteira assinada</strong><br>
+                <%= f.radio_button :saip_vinculo, "Em contrato temporário" %> <strong>Em contrato temporário</strong><br>
+                <%= f.radio_button :saip_vinculo, "Funcionário público" %> <strong>Funcionário público</strong><br>
+                <%= f.radio_button :saip_vinculo, "Proprietário de empresa ou negócio" %> <strong>Proprietário de empresa ou negócio</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">
+              <div class="form">
+                <%= f.label :saip_local , "Onde está localizado o seu trabalho?" %><br>
+                <%= f.radio_button :saip_local, "No próprio município onde realizou o curso" %> <strong>No próprio município onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Com distância de até 50 km de onde realizou o curso" %> <strong>Com distância de até 50 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância entre 50 e 100 km de onde realizou o curso" %> <strong>Em um município com distância entre 50 e 100 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância entre 100 e 400 km de onde realizou o curso" %> <strong>Em um município com distância entre 100 e 400 km de onde realizou o curso</strong><br>
+                <%= f.radio_button :saip_local, "Em um município com distância superior a 400 km de onde realizou o curso" %> <strong>Em um município com distância superior a 400 km de onde realizou o curso</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">
+              <div class="form">
+                <%= f.label :saip_renda , "Qual a sua faixa de renda mensal com base no Salário Mínimo Nacional (SMN) vigente (R$ 880,00)?" %><br>
+                 <%= f.radio_button :saip_tempo, "De 1 SMN a 2 SMN" %> <strong>De 1 SMN a 2 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 2 SMN a 3 SMN" %> <strong>De 2 SMN a 3 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 3 SMN a 4 SMN" %> <strong>De 3 SMN a 4 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "De 4 SMN a 5 SMN" %> <strong>De 4 SMN a 5 SMN</strong><br>
+                 <%= f.radio_button :saip_tempo, "Mais de 5 SMN" %> <strong>Mais de 5 SMN</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_ja_trab , "Já trabalhou na área em que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_ja_trab, "Sim" %> <strong>Sim</strong><br>
+                <%= f.radio_button :saip_ja_trab, "Não" %> <strong>Não</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_prim_oport , "Você conseguiu sua primeira oportunidade de emprego na área de formação através de:" %><br>
+                <%= f.radio_button :saip_prim_oport, "Familiares/Amigos" %> <strong>Familiares/Amigos</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Sites de agenciadores" %> <strong>Sites de agenciadores</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Jornal/Revista/Rádio" %> <strong>Jornal/Revista/Rádio</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Sites de empresas" %> <strong>Sites de empresas</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Ofertas de empresas parceiras da instituição" %> <strong>Ofertas de empresas parceiras da instituição</strong><br>
+                <%= f.radio_button :saip_prim_oport, "Iniciativa própria" %> <strong>Iniciativa própria</strong><br>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_pq_nao_esta , "Por que você não está trabalhando na área de formação?" %><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Porque não encontrei trabalho na área de formação" %> <strong>Porque não encontrei trabalho na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Os salários são muito baixos em relação a outras áreas" %> <strong>Os salários são muito baixos em relação a outras áreas</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "AS empresas exigiam experiência profissional" %> <strong>AS empresas exigiam experiência profissional</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "A formação que recebi não atendeu às exigências do mercado" %> <strong>A formação que recebi não atendeu às exigências do mercado</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Não me senti seguro para trabalhar na área" %> <strong>Não me senti seguro para trabalhar na área</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Não encontrei oferta de vagas na área de formação" %> <strong>Não encontrei oferta de vagas na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Fiz a escolha vocacional errada" %> <strong>Fiz a escolha vocacional errada</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Encontrei discriminação em relação ao gênero exigido para a função" %> <strong>Encontrei discriminação em relação ao gênero exigido para a função</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Porque continuei meus estudos" %> <strong>Porque continuei meus estudos</strong><br>
+                <%= f.radio_button :saip_pq_nao_esta, "Outro" %> <strong>Outro:</strong>
+                <%= f.text_field :saip_pq_nao_esta , class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12"></div>
+
+            <div class="form-group col-md-12">  
+              <div class="form">
+                <%= f.label :saip_pq_nunca , "Por que você nunca trabalhou na área em que se formou na instituição?" %><br>
+                <%= f.radio_button :saip_pq_nunca, "Porque não encontrei trabalho na área de formação" %> <strong>Porque não encontrei trabalho na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Os salários são muito baixos em relação a outras áreas" %> <strong>Os salários são muito baixos em relação a outras áreas</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "AS empresas exigiam experiência profissional" %> <strong>AS empresas exigiam experiência profissional</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "A formação que recebi não atendeu às exigências do mercado" %> <strong>A formação que recebi não atendeu às exigências do mercado</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Não me senti seguro para trabalhar na área" %> <strong>Não me senti seguro para trabalhar na área</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Não encontrei oferta de vagas na área de formação" %> <strong>Não encontrei oferta de vagas na área de formação</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Fiz a escolha vocacional errada" %> <strong>Fiz a escolha vocacional errada</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Encontrei discriminação em relação ao gênero exigido para a função" %> <strong>Encontrei discriminação em relação ao gênero exigido para a função</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Porque continuei meus estudos" %> <strong>Porque continuei meus estudos</strong><br>
+                <%= f.radio_button :saip_pq_nunca, "Outro" %> <strong>Outro:</strong>
+                <%= f.text_field :saip_pq_nunca , class: 'form-control' %>
+              </div>
+            </div>
+      </td>
+    </tr>
+  </table> 
+
+</div>
+</div>
+
+<% end %>
+
+<div class="form-group col-md-12">
+  <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', :back, class: 'btn  btn-danger btn3d'  %>
+      <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+     </div>
+  </div>
+</div>
+<% end %>
+
+
+</form>
+<% end %>

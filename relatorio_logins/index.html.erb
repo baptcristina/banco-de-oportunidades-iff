@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Relatorio Logins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @relatorio_logins.each do |relatorio_login| %>
+      <tr>
+        <td><%= relatorio_login.email %></td>
+        <td><%= link_to 'Show', relatorio_login %></td>
+        <td><%= link_to 'Edit', edit_relatorio_login_path(relatorio_login) %></td>
+        <td><%= link_to 'Destroy', relatorio_login, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Relatorio Login', new_relatorio_login_path %>

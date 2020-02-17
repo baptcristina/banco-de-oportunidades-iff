@@ -1,0 +1,36 @@
+<div class="panel collapse" id=collapse1> 
+<div class="panel-heading"><strong> Consulta  </strong></div>
+<div class="panel-body">
+<%= form_tag( questionario_egressos_path, method: "get",  :class => "form-inline") do %>
+<div class="col-md-2">
+    <%= label_tag(:pnome, "Nome do Egresso:") %>
+    <%= text_field_tag( :pnome, @pnome, size: 15, class: 'form-control') %>
+</div>
+<div class="col-md-2">
+    <%= label_tag(:pdata_ini, "Data Início Colação:") %>
+    <%= date_field_tag( :pdata_ini, @pdata_ini, size: 15,  class: 'form-control') %>
+</div>
+<div class="col-md-2">
+    <%= label_tag(:pdata_fim, "Data Final Colação:") %>
+    <%= date_field_tag( :pdata_fim, @pdata_fim, size: 15, class: 'form-control') %>
+</div>
+<div class="col-md-2">
+    <%= label_tag(:pdata_ate, "Respostas Até:") %>
+    <%= date_field_tag( :pdata_ate, @pdata_ate, size: 15, required: true, class: 'form-control') %>
+</div>
+<div class="col-md-2">
+    
+    <%= label_tag(:pcurso, "Nome do Curso:") %>
+    <%= text_field_tag( :pcurso, @pcurso, size: 15, class: 'form-control') %>
+</div>
+<div class="col-md-1">
+    <%= label_tag(:prealizado, "Realizado: ") %>
+    <%= select_tag :prealizado, options_for_select([['Sim','S'],['Não','N']],selected:@prealizado), class: 'form-control', style: 'width: 100%' %>
+</div>
+<div class="col-md-1">  
+    <%= submit_tag "Filtrar" , class: "btn btn-success" , style: 'position: relative; bottom: -27px;' %>
+</div>
+<% end %>
+
+</div>
+</div>

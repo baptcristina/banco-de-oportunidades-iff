@@ -1,0 +1,1 @@
+json.partial! "relatorio_logins/relatorio_login", relatorio_login: @relatorio_login

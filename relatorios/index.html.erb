@@ -1,0 +1,70 @@
+<br>
+<div class="container col-md-12" >
+<div class="panel " > <span><%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%></span>
+<div class="panel-heading"><strong> Relatorios </strong></div>
+
+<div class="panel-body">
+
+<div class="table-responsive">
+
+<table class="table table-striped table-bordered table-hover fixed">
+      <col width="500px" />
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Entradas Válidas</th>
+      <th>Erros Encontrados</th>
+      <th> Última Alteração </th>
+      <th align="center" > Ação</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @relatorios.each do |relatorio| %>
+      <tr> 
+        <td><%= relatorio.tipo %></td>
+        <td align="center"><%= relatorio.quantidade_total  %></td>
+        <td align="center"><%= relatorio.quantidade_erros %></td>
+        <td align="center"><%= relatorio.created_at%>  às <%= relatorio.created_at.strftime("%H:%M") %></td>
+        <td align="center">
+            <div class="btn-group icons">
+          <%if relatorio.nome_arquivo.to_i != 0 %>
+            <strong style="color: red;" title="Foram encontrados <%=relatorio.nome_arquivo%> registros com duplicidade">!</strong>
+          <%end%>
+          
+          <% if FormAcad.where(relatorio_id: relatorio.id).exists? %>
+
+          
+            <%if relatorio.quantidade_erros.to_i != 0 %>
+              <%= link_to '', relatorio_path(relatorio, :id => relatorio.id, relatorio_id: relatorio.id), title: "listar problemas", :class =>"btn btn-primary fa fa-search btn3d" %>
+              <%end%>
+              <%= link_to '', deletar_relatorios_path(@relatorio, :id => relatorio.id), title: "reverter importação", method: :delete, data: { confirm: 'Deseja realmente reverter?' }, :class =>"btn btn-danger fa fa-trash btn3d" %>
+
+          <% end %>
+
+            </div>
+          </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+
+<div align="center">
+<%= will_paginate @relatorios, renderer: BootstrapPagination::Rails, color: "green", next_label: ">>", previous_label: "<<"   %>
+</div>
+
+<!-- image_tag(egresso.foto, :size => "80x80")  -->
+</div>
+</div>
+
+  <div class="form-group col-md-12">
+    <div align="center">
+      <div class="btn-group icons">
+        <%= link_to 'Voltar', home_path, class: 'btn  btn-danger btn3d'  %>
+      </div>
+    </div>
+  </div>
+

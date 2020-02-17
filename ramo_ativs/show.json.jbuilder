@@ -1,0 +1,1 @@
+json.partial! "ramo_ativs/ramo_ativ", ramo_ativ: @ramo_ativ

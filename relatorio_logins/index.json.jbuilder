@@ -1,0 +1,1 @@
+json.array! @relatorio_logins, partial: 'relatorio_logins/relatorio_login', as: :relatorio_login

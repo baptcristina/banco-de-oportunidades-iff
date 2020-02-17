@@ -1,0 +1,77 @@
+<br>
+<div class="container col-md-12" >
+<div class="panel " > <span><%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%></span>
+<div class="panel-heading"><strong> Relatorios </strong></div>
+
+<div class="panel-body">
+
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover fixed">
+  <col width="100px" />
+  <col width="120px" />
+  <col width="220px" />
+  <col width="220px" />
+  <col width="200px" />
+  <col width="100px" />
+  <col width="100px"/>
+  <thead>
+    <tr>
+      <th style="text-align: center">Id do Erro</th>
+      <th style="text-align: center">CPF</th>
+      <th>Nome do Egresso</th>
+      <th>Email Principal </th>
+      <th>Curso </th>     
+      <th > Turma </th>
+      <th>Ação </th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+ <% if not(params[:page].present?)%>
+    <% i=1;%> 
+    <%else%>
+    <% i = (params[:page].to_i-1)*5+1%>
+    <%end%>
+    <% @osEgressos.each do |oEgresso| %>
+      <tr title="Verificar CPF ou email principal">
+        <td align="center"><%= i %></td>
+        <td align="center"><%=oEgresso.cpf%></td>
+                <td><%=oEgresso.nome_completo%></td>
+        <td><%=oEgresso.email_princ%></td>
+        <td><%=FormAcad.where(egresso_id: oEgresso.id).where(relatorio_id: params[:relatorio_id]).first.nome_curso%></td>
+        <td style="text-align: center"><%=FormAcad.where(egresso_id: oEgresso.id).where(relatorio_id: params[
+          :relatorio_id]).first.semestre_letivo%></td>
+        <td align="center">
+            <div class="btn-group icons">
+              <% if (oEgresso.email_princ.present? && not( User.where(egresso_id: oEgresso.id).present?))||(oEgresso.email_princ.nil?)  %>
+                <%= link_to '', reparar_user_egressos_path(oEgresso, :cpf => oEgresso.cpf, relatorio_id: params[:relatorio_id]), method: "post", title: "Incluir acesso",  :class => "btn btn-primary btn3d fa fa-user-plus"  %>
+              <%end %>
+                <%= link_to '', deletar_registro_relatorios_path(oEgresso, relatorio_id: params[:relatorio_id], egresso_id: oEgresso.id), title: "Remover registro", method: :delete_registro, data: { confirm: 'Deseja realmente remover?' }, :class =>"btn btn-danger fa fa-remove btn3d" %>
+            </div>
+          </td>        
+      </tr>
+      <% i+=1;%>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+
+<div align="center">
+<%= will_paginate @osEgressos, renderer: BootstrapPagination::Rails, color: "green" %>
+</div>
+
+
+</div>
+</div>
+
+
+  <div class="form-group col-md-12">
+    <div align="center">
+      <div class="btn-group icons">
+        <%= link_to 'Voltar', relatorios_path, class: 'btn  btn-danger btn3d'  %>
+      </div>
+    </div>
+  </div>
+

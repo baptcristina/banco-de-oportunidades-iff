@@ -1,0 +1,80 @@
+<div class="container">
+<br>
+<div class="col-md-12">
+	<div class="panel">
+		<div class="panel-heading"> Primeiro Acesso </div>
+		<div class="panel-body">
+		
+		<%= form_tag( '/primacessos/enviar', method: "get",  :class => "form-inline") do %>
+		<div class="col-md-6">
+			<%= label_tag(:pcurso, "Nome do Curso:") %> <br>
+    		<%= select_tag :pcurso,  options_for_select(Curso.all.map {|m| [m.nome]}.sort), prompt: 'Selecione um curso', style: "width: 400px; height: 28px;", class: 'form-control', id: 'curso'%>
+		</div>		
+		<div class="col-md-3">
+			<%= label_tag(:psemestre, "Turma:") %> <br>
+    		<%= select_tag :psemestre, options_for_select(""), prompt: 'Selecione a turma', style: "width: 200px; height: 28px;", id: 'psemestre', class: 'form-control'%>
+		</div>
+    	<div class="col-md-2">
+    		<br>
+        <div class="col-md-12">
+          <%= radio_button_tag 'pacesso', '0'%> Repetir Envio?
+          <%= radio_button_tag 'pacesso', '1', checked: true%> Primeiro Envio
+        </div>
+    </div>
+    <div class="col-md-1">
+			<%= button_tag type: 'submit', class: "btn btn-primary btn3d", method: "post", title: "Encaminhar e-mail", data: { confirm: 'Deseja realmente enviar?'} do  %>
+    			<i class='fa fa-envelope' aria-hidden="true"></i>
+    		<%end%>   
+      </div>
+		
+		<% end %>
+
+
+		</div>
+		<hr/>
+		<p id="info" style="display: none;" align="center"></p>
+</div>
+</div>
+
+
+<script type="text/javascript">
+$(document).on("change", "#curso", function() {
+   $("#info").css("display",'none');
+   $.ajax({
+   type: "GET",
+   url: "/primacessos/filtro",
+   data: {"curso" : $(this).val()},
+   dataType: "json",
+   success: function(data)  {
+        var texto= "<option name='primacessos[pturma]' value=''>"+'Selecione um Semestre'+"</option>\n";
+        var str = "";
+        $("#psemestre").empty();
+        for( i=0; i<data.length;i++){
+        	str = data[i].toString();
+          	texto = texto +"<option name='primacessos[pturma]' value='"+str.split(",")[0]+"'>"+str.split(",")[0]+"</option>\n"
+          
+        }
+        $("#psemestre").html(texto);
+		}
+	});
+});
+
+$(document).on("change", "#psemestre", function() {
+        $.ajax({
+			    type: "GET",
+   				url: "/primacessos/filtro2",
+   				data: {"curso" : $("#curso").val(),
+   					   "semestre" : $("#psemestre").val()
+   						},
+   				dataType: "json",
+   				success: function(data)  {
+        			$("#info").html("Serão enviadas solicitações para <strong>"+data.length+'</strong> usuários.');
+        			$("#info").css("display",'block');
+      			}
+   		});
+
+
+});
+
+</script>
+</script>

@@ -1,0 +1,1 @@
+json.partial! "primacessos/primacesso", primacesso: @primacesso

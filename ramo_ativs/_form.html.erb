@@ -1,0 +1,43 @@
+<%= form_for(ramo_ativ) do |f| %>
+  <% if ramo_ativ.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ramo_ativ.errors.count, "error") %> prohibited this ramo_ativ from being saved:</h2>
+
+      <ul>
+      <% ramo_ativ.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="col-md-3"></div>
+<div class="container col-md-6">
+<div class="panel"><%= link_to '', :back,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%>
+<div class="panel-heading"><strong>Cadastro de Ramo de Atividade</strong></div>
+<div class="panel-body">
+
+<form class="form-horizontal ">
+
+  <div class="field">
+     <%= f.label :ramo_ativ, "Ramo de Atividade" %>
+    <%= f.text_field :ramo_ativ, class: 'form-control' %>
+  </div>
+
+</div>
+</div>
+</div>
+
+<br><br>
+  <div class="form-group col-md-12">
+    <div align="center">
+      <div class="btn-group icons">
+        <%= link_to 'Voltar', ramo_ativs_path, class: 'btn  btn-danger btn3d'  %>
+        <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+ <% end %>  
+ </form>  
+  </div>
+    </div>
+  </div>
