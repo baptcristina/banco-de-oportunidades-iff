@@ -1,0 +1,2 @@
+module CompetsHelper
+end
