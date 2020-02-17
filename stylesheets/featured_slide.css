@@ -1,0 +1,38 @@
+@charset "utf-8";
+/*
+Template Name: News Magazine
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+File: Featured Slider CSS
+*/
+
+#featured_slide{display:block; width:630px; height:385px; margin:0; padding:0; overflow:hidden; font-family:Georgia, "Times New Roman", Times, serif;color: transparent;}
+#featured_slide a{color:transparent; background-color:transparent;}
+#featured_slide a, #featured_slide ul, #featured_slide img{margin:0; padding:0; border:none; outline:none; list-style:none; text-decoration:none;color: transparent;}
+#featured_slide ul{margin:15px 0 0 0;color: transparent;}
+#featured_slide h1, #featured_slide h2, #featured_slide h3, #featured_slide h4, #featured_slide h5, #featured_slide h6, #featured_slide p{margin:0 0 4px 0; padding:0; line-height:normal; font-size:20px; font-weight:normal;color: transparent;}
+#featured_slide a{color:transparent; background-color:transparent; font-weight:normal;}
+#featured_slide p{margin:0; font-size:14px;color: transparent;}
+
+.gallery{color:transparent; background: transparent; padding:15px;}
+
+.loader{background:url("/assets/loader.gif") center center no-repeat;}
+
+.panel .panel-overlay, .panel .overlay-background{height:60px; padding:10px; color: transparent!important;}
+.panel .overlay-background{background: transparent;}
+.panel .panel-overlay{color:transparent; font-size:0.7em;}
+.panel .panel-overlay a{color:transparent; text-decoration:underline; font-weight:bold;}
+
+.filmstrip{margin:15px 0 0 0; padding:0;color: transparent;}
+.filmstrip .img_wrap{margin:0; padding:0;color: transparent;}
+
+.frame{}
+.frame .img_wrap{border:1px solid transparent;color: transparent;}
+.frame.current .img_wrap{border-color:transparent;}
+.frame img{border:none;}
+.frame .caption{text-align:center;color: transparent;}
+.frame.current .caption{color:#000;}
+
+.pointer{border-color:#000;}
