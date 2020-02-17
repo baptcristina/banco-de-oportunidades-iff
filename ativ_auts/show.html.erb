@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @ativ_aut.egresso.cpf %>
+</p>
+
+<p>
+  <strong>Prest serv:</strong>
+  <%= @ativ_aut.prest_serv %>
+</p>
+
+<p>
+  <strong>Ramo ativ:</strong>
+  <%= @ativ_aut.ramo_ativ.ramo_ativ %>
+</p>
+
+<p>
+  <strong>Funcao:</strong>
+  <%= @ativ_aut.funcao %>
+</p>
+
+<p>
+  <strong>Data ini:</strong>
+  <%= @ativ_aut.data_ini %>
+</p>
+
+<p>
+  <strong>Data fim:</strong>
+  <%= @ativ_aut.data_fim %>
+</p>
+
+<%= link_to 'Edit', edit_ativ_aut_path(@ativ_aut) %> |
+<%= link_to 'Back', ativ_auts_path %>

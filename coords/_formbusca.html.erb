@@ -1,0 +1,14 @@
+
+<div class="panel collapse" id=collapse1> 
+<div class="panel-heading"><strong>  </strong></div>
+<div class="panel-body">
+
+<%= form_tag( new_coord_path(admin_id: params[:admin_id]) , method: "post",  :class => "form-inline") do %>
+  	<%= label_tag(:pemail, "E-mail:") %>
+    <%= text_field_tag( :pemail, @pemail) %>
+    <%= submit_tag "Adicionar Administrador" , class: "btn btn-success" %>   
+
+<% end %>
+
+</div>
+</div>

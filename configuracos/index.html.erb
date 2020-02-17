@@ -1,0 +1,55 @@
+<br>
+<div class="container col-md-3" ></div>
+<div class="container col-md-6" style="vertical-align: center;">
+
+<% if current_admin.try(:adm?) %>
+<%= render 'formbusca'%>
+<%end%>
+<div class="panel " >
+ <span><%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%> <a class="btn btn-sm btn-success btn3d pull-right" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample" title="Criar login para usuário Instituição"><i class="fa fa-plus"></i>
+  </a></span>
+<div class="panel-heading"><strong> Administradores do Sistema </strong></div>
+
+<div class="panel-body">
+
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover fixed">
+  <thead>
+    <tr>
+    <th>E-mail</th>
+    <th style="text-align: center;" colspan="4"> Desenvolvedor? </th>
+      <th style="text-align: center;" colspan="4">  </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin.each do |admin| %>
+      <tr>
+        <td> <%= admin.email %></td>
+        <td style="text-align: center;" colspan="4"><%= check_box_tag :super, 1, admin.super, disabled: true %></td>
+            <td style="text-align: center;" colspan="4"><div class="btn-group icons">
+         <% if admin.email == 'admin@iff.edu.br' %>
+         <%else%>
+            <%= link_to '', deletar_configuracos_path(admin, :id => admin.id), method: :delete, data: { confirm: 'Deseja realmente deletar?' }, title: "Deletar", :class =>"btn btn-danger fa fa-trash btn3d" %>
+           <%= link_to '', trocar_configuracos_path(admin, :id => admin.id), method: "post", title: "Trocar Permissão para Desenvolver", :class =>"btn btn-success fa fa-refresh btn3d"%>
+           <%= link_to '', coords_path(admin_id: admin.id), method: "get", title: "Gerenciar Cursos", class: "btn btn-primary fa fa-paperclip btn3d"%>
+         <%end%>
+
+        </div>  </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+
+
+<div align="center">
+<%= will_paginate @admin, renderer: BootstrapPagination::Rails, color: "green", next_label: ">>", previous_label: "<<"   %>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+

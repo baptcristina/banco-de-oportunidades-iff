@@ -1,0 +1,55 @@
+<br>
+   <div class="container" >
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel"><span><%= link_to '', home_path,:title => 'Fechar', :method => :get, :class =>"btn btn-xs btn3d btn-danger fa fa-times pull-right" %>
+                </span>
+                  
+                    <div class="panel-heading" id="panel_head" >
+                        <h3 class="panel-title" style="color: #fff">Modificar Conta</h3>
+                    </div>
+                    <div class="panel-body" id="panel_form">
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+     <div class="form-group">
+
+  <div class="field">
+    <%= f.label :email,"E-mail", class: "control-label" %><br />
+    <%= f.email_field :email, autofocus: true, class: "form-control" , disabled: 'false'%>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+  <br>
+  <div class="field">
+    <%= f.label :password,'Nova Senha', class: "control-label" %> <i>(Caso queira mudá-la)</i><br />
+    <%= f.password_field :password, autocomplete: "off", class: "form-control"  %>
+  </div>  
+    <% if @minimum_password_length %>
+
+      <em>Mínimo de <%= @minimum_password_length %> caracteres</em>
+    <% end %>
+  <br><br>
+  <div class="field">
+    <%= f.label :password_confirmation,'Confirmação de Senha', class: "control-label" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control"  %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label :current_password ,'Senha atual', class: "control-label"%> <i>(precisamos de sua senha atual para confirmar as alterações)</i><br />
+    <%= f.password_field :current_password, autocomplete: "off", class: "form-control"  %>
+  </div>
+<br>
+  <div class="form-group">
+    <%= f.submit "Atualizar"  , class: "btn btn-primary btn-block"%>
+  </div>
+<% end %>
+
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

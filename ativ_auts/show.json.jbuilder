@@ -1,0 +1,1 @@
+json.partial! "ativ_auts/ativ_aut", ativ_aut: @ativ_aut

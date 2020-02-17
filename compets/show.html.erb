@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Egresso:</strong>
+  <%= @compet.egresso %>
+</p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @compet.descricao %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @compet.valor %>
+</p>
+
+<%= link_to 'Edit', edit_compet_path(@compet) %> |
+<%= link_to 'Back', compets_path %>

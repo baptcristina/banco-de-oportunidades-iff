@@ -1,0 +1,50 @@
+<div><br><br><br><br></div>
+<div class="container col-md-12" >
+  <div class="panel " >
+    <span> <%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%> <%= link_to' Novo Egresso', new_convenio_path,:method => :post , :class =>"btn btn-success btn3d fa fa-graduation-cap pull-right"%> <a class="btn btn-sm btn-success btn3d pull-right" data-toggle="collapse" href="#collapse1" aria-expanded="false"  aria-controls="collapseExample">
+      <i class="fa fa-search" title="Pesquisar"></i>
+      </a></span>
+    <div class="panel-heading"><strong> Convenios </strong></div>
+
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover fixed">
+        <col width="130px" />
+        <col width="290px" />
+        <col width="190px" />
+        <col width="200px" />
+        <col width="130px" />
+  <thead>
+    <tr>
+      <th>Cnpj</th>
+      <th>Data inicio</th>
+      <th>Data fim</th>
+      <th>Observacao</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @convenios.each do |convenio| %>
+      <tr>
+        <td><%= convenio.cnpj.cnpj if convenio.cnpj%></td>
+        <td><%= convenio.data_inicio %></td>
+        <td><%= convenio.data_fim %></td>
+        <td><%= convenio.observacao %></td>
+            <td align="center" colspan="4">
+            <div class="btn-group icons">
+              <% if current_admin.try(:adm?) %>  
+                <%= link_to '', convenio, :class =>"btn btn-default fa fa-eye btn3d" %>  
+              <%end%>    
+              <%= link_to '',  edit_convenio_path(convenio) , :class =>"btn btn-success fa fa-pencil btn3d" %>
+              <%= link_to '', convenio, method: :delete, data: { confirm: 'Deseja realmente deletar?' }, :class =>"btn btn-danger fa fa-trash btn3d" %>
+            </div>
+          </td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+   </div>
+  </div>  
+</div>
+

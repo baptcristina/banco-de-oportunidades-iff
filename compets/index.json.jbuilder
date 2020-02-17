@@ -1,0 +1,1 @@
+json.array! @compets, partial: 'compets/compet', as: :compet

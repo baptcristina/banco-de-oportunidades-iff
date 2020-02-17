@@ -1,0 +1,1 @@
+json.array! @configuracos, partial: 'configuracos/configuraco', as: :configuraco

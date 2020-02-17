@@ -1,0 +1,56 @@
+<br>
+<%= form_for(curso) do |f| %>
+  <% if curso.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(curso.errors.count, "error") %> prohibited this curso from being saved:</h2>
+
+      <ul>
+      <% curso.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="col-md-3"></div>
+<div class="container col-md-6">
+<div class="panel"><%= link_to '', :back,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%> 
+<div class="panel-heading"><strong>Cadastro de Curso</strong></div>
+<div class="panel-body">
+
+<form class="form-horizontal ">
+
+
+  <div class="field">
+    <%= f.label :nome," Descrição" %>
+    <%= f.text_field :nome, class: 'form-control' %>
+  </div>
+<br>
+  <div class="field" style="display: none">
+    <%= f.label :hidden," Esta descrição  também serve para informar a titulação do egresso?" %>
+    &nbsp&nbsp<%= f.check_box :hidden%>
+  </div>
+
+
+  <div class="field"> 
+    <%= f.label :titulacao_id , "Título para Exibição de Currículo"%>
+ <%= f.select :titulacao_id, options_for_select(Titulacao.order(:titulo).map{|m| [m.titulo,m.id]},f.object.titulacao_id), {include_blank: ' Selecione um Título '}, class: 'selectpicker form-control'%>
+  </div>
+
+</div>
+</div>
+</div>
+
+<br><br>
+  <div class="form-group col-md-12">
+    <div align="center">
+      <div class="btn-group icons">
+        <%= link_to 'Voltar', cursos_path, class: 'btn  btn-danger btn3d'  %>
+        <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+ <% end %>  
+ </form>  
+  </div>
+    </div>
+  </div>

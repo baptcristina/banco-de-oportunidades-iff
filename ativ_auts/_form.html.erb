@@ -1,0 +1,124 @@
+<br>
+<%= form_for(ativ_aut) do |f| %>
+
+<div class= " form-group  col-md-3"> </div>
+<div class= " form-group  col-md-6">
+<div class="panel"><%= link_to '', :back,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%>
+<div class="panel-heading"><strong> Atividade Autônoma </strong></div>
+
+<% if current_admin.try(:super?) %>
+
+<div class="panel-body">
+<div class="table-responsive">
+
+<form class="form-horizontal ">
+
+
+            <% if @ativ_aut.egresso_id? %>
+
+                <div class="form-group  col-md-4"> 
+                  <%= f.label :egresso_id , "CPF"%>
+                  <%= f.select :egresso_id, options_for_select(Egresso.where(cpf: @ativ_aut.egresso.cpf).map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control' %>
+                </div>
+
+              <% else %>
+ 
+                <div class="form-group  col-md-4"> 
+                  <%= f.label :egresso_id , "CPF"%>
+                  <%= f.select :egresso_id, options_for_select(Egresso.all.map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control' %>
+                </div>
+
+                <%end%>
+<div class="form-group  col-md-12 "> 
+        <%= f.label :prest_serv, "Local da Prestação de Serviço"%>
+    <%= f.text_field :prest_serv, class: 'form-control'   %>
+  </div>
+
+<div class="form-group  col-md-10"> 
+    <%= f.label :ramo_ativ_id, "Ramo de Atividade / Tabela CNAE" %>
+    <%= f.select :ramo_ativ_id, options_for_select(RamoAtiv.all.map{|m| [m.ramo_ativ,m.id]}.sort,f.object.ramo_ativ_id), { prompt: 'Selecione um ramo'}, class: 'selectpicker form-control'%>
+  </div>
+
+<div class="form-group  col-md-8"> 
+    <%= f.label :funcao , "Função Exercida"%>
+    <%= f.text_field :funcao , class: 'form-control'%>
+  </div>
+
+<div class="col-md-12"></div>
+<div class="form-group  col-md-4"> 
+    <%= f.label :data_ini, "Data de Início"%>
+    <%= f.date_field :data_ini , order: [:day, :month, :year], class: ' form-control' %>
+  </div>
+
+<div class="form-group  col-md-4"> 
+    <%= f.label :data_fim, "Data de Término" %>
+    <%= f.date_field :data_fim , order: [:day, :month, :year], class: ' form-control'%>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+
+  <div class="form-group col-md-12">
+    <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', ativ_auts_path(@ativ_aut, egresso_id: params[:egresso_id]), class: 'btn  btn-danger btn3d'  %>
+      <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+    </div>
+</div>
+</div>
+
+<% else%>
+
+<div class="panel-body">
+<div class="table-responsive">
+
+<form class="form-horizontal ">
+
+<div class="form-group  col-md-4" , style= "display:none;">
+    <%= f.label :egresso_id,"CPF" %>
+    <%= f.select :egresso_id, options_for_select(Egresso.where( :cpf => current_user.egresso.cpf).map{|m| [m.cpf,m.id]},f.object.egresso_id || current_user.egresso_id), {disabled: true}, class: 'selectpicker form-control' %>
+  </div>
+
+<div class="form-group  col-md-12 "> 
+        <%= f.label :prest_serv, "Local da Prestação de Serviço"%>
+    <%= f.text_field :prest_serv, class: 'form-control'   %>
+  </div>
+
+<div class="form-group  col-md-10"> 
+    <%= f.label :ramo_ativ_id, "Ramo de Atividade / Tabela CNAE" %>
+    <%= f.select :ramo_ativ_id, options_for_select(RamoAtiv.all.map{|m| [m.ramo_ativ,m.id]},f.object.ramo_ativ_id),{ prompt: 'Selecione um ramo'}, class: 'selectpicker form-control'%>
+  </div>
+
+<div class="form-group  col-md-8"> 
+    <%= f.label :funcao , "Função Exercida"%>
+    <%= f.text_field :funcao , class: 'form-control'%>
+  </div>
+
+<div class="col-md-12"></div>
+<div class="form-group  col-md-4"> 
+    <%= f.label :data_ini, "Data de Início"%>
+    <%= f.date_field :data_ini , order: [:day, :month, :year], class: ' form-control' %>
+  </div>
+
+<div class="form-group  col-md-4"> 
+    <%= f.label :data_fim, "Data de Término" %>
+    <%= f.date_field :data_fim , order: [:day, :month, :year], class: ' form-control'%>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+
+   <div class="form-group col-md-12">
+    <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', ativ_auts_path(@ativ_aut, egresso_id: params[:egresso_id]), class: "btn btn-danger btn3d" %>
+      <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+    </div>
+<% end %>
+<% end %>

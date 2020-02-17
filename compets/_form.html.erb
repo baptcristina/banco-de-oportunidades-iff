@@ -1,0 +1,141 @@
+<br>
+<%= form_for(compet) do |f| %>
+
+<div class= " form-group  col-md-3"> </div>
+<div class= " form-group  col-md-6">
+<div class="panel"><%= link_to '', :back,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%>
+    <div class="panel-heading"><strong> Competências Adicionais </strong></div>
+
+<% if current_admin.try(:super?) %> <!-- é admin? -->
+
+      <div class="panel-body">
+        <div class="table-responsive">
+          <form class="form-horizontal ">
+
+            <% if @compet.egresso_id? %>  <!-- estou editando ou é novo? -->
+
+              <div class="form-group  col-md-4"> 
+                <%= f.label :egresso_id , "CPF"%>
+                <%= f.select :egresso_id, options_for_select(Egresso.where(cpf: @compet.egresso.cpf).map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control' %>
+              </div>
+
+              <div class="form-group  col-md-12 "> 
+              <%= f.label :descricao,"Descrição" %>
+              <%= f.text_field :descricao, class: 'form-control' %>
+              </div>
+
+              <div class="form-group  col-md-12"> 
+              <th><strong>Nível de Conhecimento</th></strong><br><br>
+              <div class="checkbox-inline col-md-12 " align="center">
+              <%= f.radio_button :valor, "Básico"%>  Básico &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+              <%= f.radio_button :valor, "Intermediário"%> Intermediário &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+                <%= f.radio_button :valor, "Avançado"%> Avançado
+             </div>
+              </div>
+
+
+            <% else %> <!-- novo -->
+
+              <div class="form-group  col-md-4"> 
+              <%= f.label :egresso_id , "CPF"%>
+              <%= f.select :egresso_id, options_for_select(Egresso.all.map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control' %>
+              </div>
+
+              <div class="form-group  col-md-12 "> 
+              <%= f.label :descricao,"Descrição" %>
+              <%= f.text_field :descricao, class: 'form-control' %>
+              </div>
+
+              <div class="form-group  col-md-12"> 
+              <th><strong>Nível de Conhecimento</th></strong><br><br>
+              <div class="checkbox-inline col-md-12 " align="center">
+              <%= f.radio_button :valor, "Básico"%>  Básico &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+              <%= f.radio_button :valor, "Intermediário"%> Intermediário &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+                <%= f.radio_button :valor, "Avançado"%> Avançado
+             </div>
+
+            <% end %>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="form-group col-md-12">
+  <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', compets_path(@compet, egresso_id: @compet.egresso_id), class: 'btn  btn-danger btn3d'  %>
+      <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+    </div>
+  </div>
+</div>
+
+<%else%> <!-- é usuário! -->
+
+      <div class="panel-body">
+        <div class="table-responsive">
+          <form class="form-horizontal ">
+
+            <% if @compet.egresso_id? %>  <!-- tô editando?  -->
+
+              <div class="form-group  col-md-4" style="display: none;"> 
+                <%= f.select :egresso_id, options_for_select(Egresso.where(cpf: current_user.egresso.cpf).map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control' %>
+              </div>
+
+
+              <div class="form-group  col-md-12 "> 
+              <%= f.label :descricao,"Descrição" %>
+              <%= f.text_field :descricao, class: 'form-control' %>
+              </div>
+
+              <div class="form-group  col-md-12"> 
+              <th><strong>Nível de Conhecimento</th></strong><br><br>
+              <div class="checkbox-inline col-md-12 " align="center">
+              <%= f.radio_button :valor, "Básico"%>  Básico &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+              <%= f.radio_button :valor, "Intermediário"%> Intermediário &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+                <%= f.radio_button :valor, "Avançado"%> Avançado
+             </div>
+
+
+            <% else %> <!-- novo -->
+
+              <div class="form-group  col-md-4", style= "display: none;"> 
+              <%= f.label :egresso_id , "CPF"%>
+              <%= f.select :egresso_id, options_for_select(Egresso.where(cpf: current_user.egresso.cpf).map{|m| [m.cpf,m.id]},f.object.egresso_id), {disabled: true}, class: 'selectpicker form-control' %>
+              </div>
+
+              <div class="form-group  col-md-12 "> 
+              <%= f.label :descricao,"Descrição" %>
+              <%= f.text_field :descricao, class: 'form-control' %>
+              </div>
+
+              <div class="form-group  col-md-12"> 
+              <th><strong>Nível de Conhecimento</th></strong><br><br>
+              <div class="checkbox-inline col-md-12 " align="center">
+              <%= f.radio_button :valor, "Básico"%>  Básico &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+              <%= f.radio_button :valor, "Intermediário"%> Intermediário &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+                <%= f.radio_button :valor, "Avançado"%> Avançado
+             </div>
+
+            <% end %>
+
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="form-group col-md-12">
+  <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', compets_path(@compet, egresso_id: params[:egresso_id]), class: 'btn  btn-danger btn3d'  %>
+      <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+<% end %>

@@ -1,0 +1,51 @@
+
+<br>
+
+
+<div class="col-md-3"></div>
+<div class="container col-md-6">
+<div class="panel"><%= link_to '', :back,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%>
+<div class="panel-heading"><strong>Adicionar Novo Curso</strong></div>
+<div class="panel-body">
+
+<%= form_for(coord) do |f| %>
+
+<form class="form-horizontal ">
+
+  <div class="field">
+     <%= f.label :curso_id, "Nome do Curso" %>
+     <%= f.select :curso_id, options_for_select(Curso.all.map{|m| [m.nome,m.id]}.sort,f.object.curso_id), {include_blank: true}, class: 'selectpicker form-control' %>
+   </div>
+
+</div>
+</div>
+</div>
+<%if @coord.admin_id?%>
+  <%= f.hidden_field :admin_id, value: @coord.admin_id%>
+<%else%>
+  <%= f.hidden_field :admin_id, value: params[:admin_id]%>
+<%end%>
+
+  <div class="form-group col-md-12">
+    <div align="center">
+      <div class="btn-group icons">
+        <%= link_to 'Voltar', coords_path, class: 'btn  btn-danger btn3d'  %>
+        <%= button_tag(type: 'submit', class: "btn btn-success btn3d", disabled: true, id: 'submit') do %> Salvar <% end %>
+ </form>  
+ <% end %> 
+
+  </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  $("#coord_curso_id").change( function(){
+    if ($("#coord_curso_id").val() !== ""){
+      $("#submit").removeAttr("disabled");
+    }else{
+      $("#submit").attr("disabled", true);
+    } 
+  });
+  
+</script>
+  

@@ -1,0 +1,1 @@
+json.array! @ativ_auts, partial: 'ativ_auts/ativ_aut', as: :ativ_aut

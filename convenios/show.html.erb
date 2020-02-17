@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cnpj:</strong>
+  <%= @convenio.cnpj %>
+</p>
+
+<p>
+  <strong>Data inicio:</strong>
+  <%= @convenio.data_inicio %>
+</p>
+
+<p>
+  <strong>Data fim:</strong>
+  <%= @convenio.data_fim %>
+</p>
+
+<p>
+  <strong>Observacao:</strong>
+  <%= @convenio.observacao %>
+</p>
+
+<%= link_to 'Edit', edit_convenio_path(@convenio) %> |
+<%= link_to 'Back', convenios_path %>

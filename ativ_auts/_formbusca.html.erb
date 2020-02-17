@@ -1,0 +1,23 @@
+<div class="panel collapse" id=collapse1> 
+<div class="panel-heading"><strong> Consulta  </strong></div>
+<div class="panel-body">
+<%= form_tag( ativ_auts_path, method: "get",  :class => "form-inline") do %>
+<div class="col-md-2">
+    <%= label_tag(:pprest_serv, "Local da Prestação do Serviço:") %>
+    <%= text_field_tag( :pprest_serv, @pprest_serv, size: 20, class: 'form-control') %>
+</div>
+<div class="col-md-2">
+  	<%= label_tag(:pfuncao, "Função Exercida:") %>
+    <%= text_field_tag( :pfuncao, @pfuncao, size: 20, class: 'form-control')%>
+</div>
+<div class="col-md-2">
+    <%= label_tag(:pegresso, "Nome do Egresso:") %>
+    <%= text_field_tag( :pegresso, @pegresso, size: 20, class: 'form-control') %>
+</div>
+<div class="col-md-2">    
+    <%= submit_tag "Filtrar" , class: "btn btn-success",style: 'position: relative; bottom: -27px;' %>  
+</div> 
+<% end %>
+
+</div>
+</div>
