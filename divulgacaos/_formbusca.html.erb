@@ -1,0 +1,23 @@
+<div class="panel collapse" id=collapse1> 
+<div class="panel-heading"><strong> Consulta  </strong></div>
+<div class="panel-body">
+<%= form_tag( divulgacaos_path, method: "get",  :class => "form-inline") do %>
+
+
+<div class="col-md-3">
+    <%= label_tag(:pinicio, "Data Inicial:") %> 
+    <%= date_field_tag( :pinicio, @pinicio, value: params[:pinicio], class: 'form-control') %>
+</div>
+<div class="col-md-3">
+    <%= label_tag(:pfim, "Data Final:") %>
+    <%= date_field_tag( :pfim, @pfim, value: params[:pfim], class: 'form-control') %>
+</div>
+
+<div class="col-md-2">
+  <%= label_tag(:enviar, "&nbsp".html_safe) %> <br>
+    <%= submit_tag "Filtrar" , class: "btn btn-success" %> 
+</div>
+<% end %>
+
+</div>
+</div>

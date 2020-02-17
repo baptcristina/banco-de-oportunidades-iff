@@ -1,0 +1,1 @@
+json.partial! "divulgacaos/divulgacao", divulgacao: @divulgacao

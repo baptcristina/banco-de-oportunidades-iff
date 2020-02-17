@@ -1,0 +1,156 @@
+
+
+<%= form_for(empresa) do |f| %>
+
+       
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="container">
+<div class= " form-group  col-md-1"> </div>
+<div class= " form-group  col-md-12">
+<div class="panel-heading"><%= link_to '', :back,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%>
+<div class="panel" > 
+<div class="panel-heading"><strong>Cadastro de Empresa</strong>
+
+</div>
+
+<div class="panel-body">
+<div class="table-responsive">
+<form class="form-horizontal ">
+
+<div class="form-group col-md-10">
+<div class="form-group col-md-4">
+    <%= f.label :cnpj,"CNPJ" %>
+    <%= f.text_field :cnpj, id: 'cnpj', class: 'form-control' %>
+
+  </div>  
+
+<div class="form-group  col-md-8">
+
+    <%= f.label :ramo_ativ_id, "Ramo de Atividade / Tabela CNAE" %>
+    <%= f.select :ramo_ativ_id, options_for_select(RamoAtiv.all.map{|m| [m.ramo_ativ,m.id]}.sort,f.object.ramo_ativ_id),  {prompt: 'Escolha o Ramo de Atividade'}, class: 'selectpicker form-control'%>
+  </div>
+
+<div class="form-group  col-md-12">
+    <%= f.label :razao_social,"Razão Social" %>
+    <%= f.text_field :razao_social ,  class: 'form-control'  %>
+  </div>
+
+<div class="form-group  col-md-12">
+
+    <%= f.label :nome_fantasia,"Nome Fantasia" %>
+    <%= f.text_field :nome_fantasia ,  class: 'form-control'  %>
+  </div>
+
+ <div class="form-group col-md-10, col-md-6">
+
+    <%= f.label :site,"Site" %>
+    <%= f.text_field :site,  class: 'form-control' %>
+  </div>
+
+    <div class="form-group  col-md-6">
+    <%= f.label :email,"E-mail" %>
+    <%= f.text_field :email,  class: 'form-control', disabled: true %>
+  </div>
+
+  <div class="form-group col-md-12">
+
+    <%= f.label :endereco,"Endereço" %>
+    <%= f.text_field :endereco,  class: 'form-control' %>
+  </div>
+
+    <div class="form-group  col-md-3">
+     <%= f.label :cep,"CEP" %>
+    <%= f.text_field :cep , id: 'cep',  class: 'form-control', onchange: 'CepAJAX();'%>
+  </div>
+
+  <div class="form-group col-md-3">
+    <%= f.label :estado,"Estado" %>
+    <%= f.select :estado , options_for_select([]),  {}, class: 'form-control'%>
+  </div>
+
+  <div class="form-group col-md-6">     
+    <%= f.label :cidade,"Cidade" %>
+    <%= f.select :cidade  , options_for_select([]),  {}, class: 'form-control'%>
+  </div>
+
+
+      <script language="JavaScript" type="text/javascript" charset="utf-8">
+        new dgCidadesEstados({
+          cidade: document.getElementById('empresa_cidade'),
+          estado: document.getElementById('empresa_estado')
+        });
+
+        let identificador1 =  "#empresa_estado option[value=<%=f.object.estado%>]";
+        let identificador2 =  "#empresa_cidade option[value=<%=f.object.cidade%>]";
+        $(document).ready( function(){
+          $(identificador1).prop('selected', true);
+          $(identificador1).trigger("change");
+          $(identificador2).prop('selected', true);
+
+        });          
+        
+      </script>
+
+
+
+
+</div> 
+<div class="form-group col-md-2">  
+<div class="panel" style="   box-shadow: 10px 10px gray;height: 200px;">
+<div class="panel-heading" ><strong><%= f.label :Logomarca %></strong></div> 
+<div class="panel-body">
+  <div style="height:120px ">
+  <%= image_tag(@empresa.logo_url, width: "100%", height: "100%", id:"logo") if @empresa.logo?  %>
+  <%= image_tag("sualogo1.png", width: "100%", height: "100%", id:"logo") if not @empresa.logo?  %>
+  <%= f.hidden_field :logo_cache %> 
+       </div>
+     </div>
+  </div>
+           <div class="col-md-12 " align="center">
+            <input class="file_input" id="empresa_logo" name="empresa[logo]" type="file" onchange="readURL2(this);" accept="image/png,image/gif,image/jpeg" style="color: transparent;" /> <br>
+            <%if @empresa.logo?%>
+              <label>
+              <%= f.check_box :remove_logo %>
+              Remover Logo
+              </label>
+            <%end%>
+         </div>
+</div>
+
+
+    <div class="col-md-12 pull-right">  <%= f.file_field :logo ,accept: 'image/png,image/gif,image/jpeg', :style => "color: transparent; display: none;" %> 
+    </div>
+  <p>
+
+  </p>
+
+</div> 
+</div>
+</div>
+
+<% if current_admin.try(:super?) %>
+  <div class="form-group col-md-12">
+<div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', empresas_path, class: 'btn  btn-danger btn3d'  %>
+      <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+    </div>
+  </div>
+</div>
+<%else %>
+  <div class="form-group col-md-12">
+   <div align="center">
+    <div class="btn-group icons">
+      <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+
+    </div>
+  </div>
+<% end %>
+
+<div class="col-md-2"></div>
+<% end %>
+
+</div>
+</form>
+

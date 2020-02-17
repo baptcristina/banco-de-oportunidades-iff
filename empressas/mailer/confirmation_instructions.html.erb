@@ -1,0 +1,21 @@
+<p>Bem-vindo, <%= Empresa.where(id: @resource.empresa_id).first.try(:razao_social) %>!</p>
+
+
+<p> Você pode confirmar sua conta de email pelo link abaixo:</p>
+
+<p><%= link_to 'Confirmar minha conta', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+
+<p>
+    <br><br>
+
+        Atenciosamente,<br><br>
+
+        Banco de Oportunidades do IFF Campus Campos Centro <br>
+        http://bancodeoportunidades.centro.iff.edu.br
+<br>
+
+        <img src="http://bancodeoportunidades.centro.iff.edu.br/assets/BdO%20rotacionado-7a95d46355dfd003e7bcc3fb9b5a971e15af762c32726bea5453db430dca3820.png" width='50px' height='50px'>
+
+</p>
+

@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+<!-- msg padrao para empresa e egresso -->
+    <h1>Olá 
+      <% if @empressa.try(:empresa).present?  %>
+        <%= @empressa.empresa.razao_social %>
+      <% else %>
+        <% if @empressa.try(:egresso).present? %>
+          <%= @empressa.egresso.nome_completo %>
+        <% else %>
+            <%= @empressa.email %>  
+        <% end %>
+
+      <% end %>
+      !
+    </h1>
+    <p>
+    Recebemos no dia <%= Time.now %> às <%=Time.now.to_formatted_s(:time)%> a seguinte mensagem:
+
+<br><br>
+
+    <div class="container" id="boxshadow">
+          <strong>Assunto: <%= @fale_conosco.assunto %></strong>
+  <br><br> 
+          <strong>Mensagem: <%= @fale_conosco.mensagem %></strong>
+        </div>
+  <br><br> 
+  
+        O mais breve possível entraremos em contato pelo email: <%= @fale_conosco.email %>.<br><br>
+
+        Atenciosamente,<br><br>
+
+        Banco de Oportunidades do IFF Campus Campos Centro <br>
+        http://bancodeoportunidades.centro.iff.edu.br
+<br>
+
+        <img src="http://home.ldsoft.com.br/wp-content/uploads/2016/10/IFF-700x395-300x169.jpg">
+
+    </p>
+  </body>
+</html>

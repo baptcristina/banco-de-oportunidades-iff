@@ -1,0 +1,49 @@
+<br><br>
+  <div class="container" >
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+  
+                <div class="login-panel panel" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Login Empresa</h3>
+                    </div>
+                    <div class="panel-body" >
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name))  do |f| %>
+     <div class="form-group">
+
+       <%= f.label :email,'E-mail', class: "control-label" %><br />
+       <div style="margin-bottom: 25px"class="input-group">
+          <span class="input-group-addon" style="background-color: #79D631;"><i class="glyphicon glyphicon-user"></i></span>
+         <%= f.email_field :email, autofocus: true, class: "form-control" %>
+       </div>
+    </div>
+
+  <div class="form-group">
+    <%= f.label :password,'Senha', class: "control-label"%><br />
+    <div style="margin-bottom: 25px" class="input-group">
+       <span class="input-group-addon" style="background-color: #79D631;"><i class="glyphicon glyphicon-lock"></i></span>
+       <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+     <div class="field">
+        <%= f.label :remember_me, 'Lembrar-se de mim? ', class: "label-control" %>
+        <%= f.check_box :remember_me %>
+     </div>
+  <% end -%>
+<hr>
+  <div class="form-group" id="sign_in">
+    <%= f.submit "Entrar" , class: "btn btn-success btn-block btn3d" %>
+  </div>
+
+
+<%= render "empressas/shared/links" %>
+<% end %>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

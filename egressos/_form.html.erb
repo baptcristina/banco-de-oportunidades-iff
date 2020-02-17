@@ -1,0 +1,186 @@
+<br>
+ <%= form_for(egresso) do |f| %>
+        
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="col-md-12">
+<div class="container">
+<div class="panel"><%= link_to '', :back,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%> 
+<div class="panel-heading"><strong>Cadastro de Egresso</strong>
+
+</div>
+<div class="panel-body">
+<div class="table-responsive">
+
+<form class="form-horizontal ">
+ <div class="form-group col-md-10">
+
+ <% if user_signed_in? %>
+
+    <div class="form-group col-md-3">
+    <%= f.label :cpf , "CPF"%>
+    <%= f.text_field :cpf , id: "cpf",  class: 'form-control', disabled: true%>
+    </div>
+
+<% else %>
+    <div class="form-group col-md-3">
+    <%= f.label :cpf , "CPF"%>
+    <%= f.text_field :cpf , id: "cpf",  class: 'form-control' %>
+    </div>
+<%end%>
+
+    <div class="form-group col-md-5">   
+      <%= f.label :nome_social,"Nome Social" %>
+     <%= f.text_field :nome_social,  class: 'form-control'  %>
+    </div>
+<div class="form-group col-md-12"></div>
+
+ <% if user_signed_in? %>
+    <div class="form-group  col-md-8">
+      <%= f.label :nome_completo,"Nome Completo" %>
+     <%= f.text_field :nome_completo ,  class: 'form-control', disabled: true %>
+    </div>
+<% else %>
+    <div class="form-group  col-md-8">
+      <%= f.label :nome_completo,"Nome Completo" %>
+     <%= f.text_field :nome_completo ,  class: 'form-control' %>
+     
+    </div>
+<%end%>
+
+    <div class="form-group col-md-4">
+       <%= f.label :data_nasc,"Data de Nascimento" %>
+      <%= f.date_field :data_nasc , order: [:day, :month, :year], class: 'form-control' %>
+    </div>
+
+    <div class="form-group col-md-4">
+     <%= f.label :genero , "Gênero"%>
+      <%= f.select :genero, ['Feminino', 'Masculino', 'Outro'] ,{ prompt: 'Selecione um gênero'}, class: 'selectpicker form-control' %>
+    </div>
+ 
+    <div class="form-group col-md-4">
+     <%= f.label :est_conjugal , "Estado Conjugal"%>
+      <%= f.select :est_conjugal, ['Solteiro(a)', 'Separado(a) / Desquitado(a) / Divorciado(a)', 'Casado(a) / União Estável', 'Viúvo(a)'],{  prompt: 'Selecione um estado conjugal' } , class: 'form-control' %>   
+    </div>
+
+    <div class="form-group col-md-4">
+     <%= f.label :link, "Cor ou Raça"%>
+      <%= f.select :link, ['Branca', 'Amarela', 'Parda', 'Preta', 'Indígena', 'Não declarada'],{  prompt: 'Selecione uma cor ou raça' } , class: 'form-control' %>
+    </div>
+
+    <div class="form-group col-md-12">
+
+      <%= f.label :end_completo, "Endereço Completo" %>
+      <%= f.text_field :end_completo , class: 'form-control' %>
+    </div>
+
+   <div class="form-group col-md-3">
+     <%= f.label :tel_res , "Telefone Residencial"%>
+     <%= f.text_field :tel_res, id: "telfixo" ,  class: 'form-control' %>
+   </div>
+
+    <div class="form-group col-md-3">
+     <%= f.label :tel_com, "Telefone Comercial"%>
+     <%= f.text_field :tel_com, id: "telcom" , class: 'form-control'  %>
+   </div>
+
+   <div class="form-group col-md-3">
+     <%= f.label :tel_cel, "Telefone Celular" %>
+      <%= f.text_field :tel_cel, id: "telcel" , class: 'form-control' %>
+   </div>
+
+   <div class="form-group col-md-3">
+     <%= f.label :num_zap, "Nº WhatsApp" %>
+     <%= f.text_field :num_zap, id: "telzap" ,  class: 'form-control' %>
+   </div>
+
+   <div class="form-group  col-md-6">
+     <%= f.label :email_princ, "E-mail Principal" %>
+     <%= f.text_field :email_princ, id: "email_format" , class: 'form-control', disabled: true%>
+   </div>
+
+   <div class="form-group col-md-6"> 
+     <%= f.label :email_alt, "E-mail Alternativo" %>
+     <%= f.text_field :email_alt , id: "email_format" , class: 'form-control',onchange: 'TestarEmail()' , id: 'email' %>
+    </div>
+
+   <div class="form-group col-md-4">
+     <%= f.label :link_face, "Link Facebook" %>
+      <%= f.text_field :link_face ,  class: 'form-control'  %>
+    </div>
+
+    <div class="form-group col-md-4">
+      <%= f.label :lattes, "Link Currículo Lattes" %>
+      <%= f.text_field :lattes , class: 'form-control'  %>
+    </div>
+
+   <div class="form-group col-md-4">
+     <%= f.label :lkdn, "Link LinkedIn" %>
+     <%= f.text_field :lkdn ,  class: 'form-control' %>
+   </div>
+  </div>
+
+
+
+<div class="form-group col-md-2">  
+<div class="panel" style="   box-shadow: 10px 10px gray;height: 200px;">
+<div class="panel-heading" ><strong><%= f.label :Foto %></strong></div> 
+<div class="panel-body">
+  <div style="height:120px ">
+  <%= image_tag(@egresso.foto_url, width: "100%", height: "100%", id:"foto") if @egresso.foto?  %>
+  <%= image_tag("login1.png", width: "100%", height: "100%", id:"foto") if not @egresso.foto?  %>
+  <%= f.hidden_field :foto_cache %> 
+       </div>
+     </div>
+  </div>
+           <div class="col-md-12 " align="center">
+            <input class="file_input" id="egresso_foto" name="egresso[foto]" type="file" onchange="readURL(this);" accept="image/png,image/gif,image/jpeg" style="color: transparent;" /> <br>
+            <%if @egresso.foto?%>
+              <label>
+              <%= f.check_box :remove_foto %>
+              Remover Foto
+              </label>
+            <%end%>
+         </div>
+</div>
+
+
+    <div class="col-md-12 pull-right">  <%= f.file_field :foto ,accept: 'image/png,image/gif,image/jpeg', :style => "color: transparent; display: none;" %> 
+    </div>
+
+<% if current_admin.try(:super?) %>
+  <div class="form-group col-md-12">
+    <div align="center">
+      <div class="btn-group icons">
+        <%= link_to 'Voltar', egressos_path, class: 'btn  btn-danger btn3d'  %>
+        <%= button_tag(type: 'submit', class: "btn btn-success btn3d", id: 'submit') do %> Salvar <% end %>
+      </div>
+    </div>
+  </div>
+<%else %>
+  <div class="form-group col-md-12">
+   <div align="center">
+    <div class="btn-group icons">
+      <%= button_tag(type: 'submit', class: "btn btn-success btn3d", id: 'submit') do %> Salvar <% end %>
+    </div>
+  </div>
+<%end%>
+
+<div class="col-md-2"></div>
+<% end %>
+
+</div>
+</form>
+
+
+<script type="text/javascript">
+  function TestarEmail(){
+var $email = $("#email"); //change form to id or containment selector
+var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+if ($email.val() == '' || !re.test($email.val()))
+{
+    alert('Por favor digite um email válido');
+    $("#submit").prop("disabled", true);
+    return false;
+}
+}
+</script>

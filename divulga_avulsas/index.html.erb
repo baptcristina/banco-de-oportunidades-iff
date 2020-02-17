@@ -1,0 +1,30 @@
+<div class="container">
+<br>
+<div class="col-md-12">
+  <div class="panel">
+    <div class="panel-heading"> Divulgação de Vagas de Emprego das Redes Sociais</div>
+    <div class="panel-body">
+    
+    <%= form_tag( '/divulga_avulsas/divulga_avulsa', method: "get",  :class => "form-inline") do %>
+    <div class="col-md-5">
+      <%= label_tag(:pcurso, "Nome do Curso:") %> <br>
+        <%= select_tag :pcurso,  options_for_select(Curso.all.map {|m| [m.nome]}.sort), prompt: 'Selecione um curso', style: "width: 400px; height: 35px"%>
+    </div>    
+    <div class="col-md-5">
+      <%= label_tag(:ptexto, "Endereço do site:") %> <br>
+        <%= text_field_tag(:ptexto, nil, {size: "50", style: "height: 35px", placeholder: "https://endereco.com.br"}) %>
+    </div>
+
+    <div class="col-md-2", style="margin-top: 10px">
+      <%= button_tag type: 'submit', class: "btn btn-primary btn3d", method: "post", title: "Encaminhar e-mail", data: { confirm: 'Deseja realmente enviar?'} do  %>
+          <i class='fa fa-envelope' aria-hidden="true"></i>
+        <%end%>   
+      </div>
+    
+    <% end %>
+
+
+    </div>
+    <hr/>
+</div>
+</div>

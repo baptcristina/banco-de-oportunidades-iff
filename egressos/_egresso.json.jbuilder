@@ -1,0 +1,2 @@
+json.extract! egresso, :id, :cpf, :nome_completo, :nome_social, :data_nasc, :genero, :est_conjugal, :end_completo, :email_princ, :email_alt, :link_face, :link, :lattes, :link, :lkdn, :tel_res, :tel_com, :tel_cel, :num_zap, :foto, :created_at, :updated_at
+json.url egresso_url(egresso, format: :json)

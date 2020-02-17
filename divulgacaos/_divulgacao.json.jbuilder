@@ -1,0 +1,2 @@
+json.extract! divulgacao, :id, :data, :descricao, :tipo, :situacao, :assunto_evento, :foto1, :foto2, :foto3, :foto4, :assunto_video, :video, :created_at, :updated_at
+json.url divulgacao_url(divulgacao, format: :json)

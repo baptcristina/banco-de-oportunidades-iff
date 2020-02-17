@@ -1,0 +1,53 @@
+<% if admin_signed_in? %>
+
+<div class="container">
+  <div class="panel">
+    <div class="panel-heading"><strong> Cadastro da Empresa </strong> <%= link_to '<i class="fa fa-print" aria-hidden="true" ></i> Imprimir'.html_safe ,'', onclick: "printpage()", class: "btn btn-success" %> <%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%></div>
+
+          <div class="panel-body" class="col-md-12" align="center" >
+
+             <div class = "col-md-2 pull-left">
+              <br>             
+              <%= image_tag(@empresa.logo, width: "170px", height: "180px") if  @empresa.logo? %>
+             </div>
+              <br>
+              <div align="left" class = "col-md-6 pull-left">
+              <h4><strong><%= @empresa.razao_social %></strong></h4>
+
+              <br>
+              <strong >CNPJ:</strong> <%= @empresa.cnpj %>
+              </div>
+
+              <div align="left" class = "col-md-8 pull-left">
+              <br>
+              <strong >Ramo de Atividade:</strong> <%= @empresa.ramo_ativ.ramo_ativ  if @empresa.ramo_ativ %>
+              </div>
+              <br>
+        <div align='left' class="col-md-12 pull-left">
+            <div>
+            <hr>
+            <strong>Endereço da Empresa</strong>
+            <br><br>
+            <% puts @empresa.cidade%>
+            <%= @empresa.endereco %> - <%= mudar_cidade(@empresa.estado,@empresa.cidade) %> / <%= @empresa.estado%> - <%= @empresa.cep %><br> <%= @empresa.site %> / <%= @empresa.email %>
+            <br>
+            </div>
+            <div>
+            <hr>
+            <%osContatos = Contato.where(empresa_id: @empresa.id)%>
+            <strong>Contatos</strong>
+            <br><br>
+            <%osContatos.each do |oContato|%>
+            <b>Nome: </b><%= oContato.nome %> -  <b>Cargo:</b> <%=oContato.cargo%> <br>
+            <b>Telefone: </b><%= oContato.tel%> -  <b>Email:</b> <%=oContato.email%> <br>
+            <hr>
+            <%end%>
+            <br>
+            <hr>
+            </div>            
+        </div>
+
+  </div>
+</div>
+
+<%end%>

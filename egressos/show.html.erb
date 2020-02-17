@@ -1,0 +1,407 @@
+
+<br>
+<% if user_signed_in?%>
+<div class="container">
+  <div class="panel">
+    <div class="panel-heading"><strong> Currículo </strong><%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%><a href=<%="/egressos/mostrar.pdf?egresso_id="+params[:egresso_id].to_s%> target="_blank" class="btn btn-success"><i class="fa fa-print" aria-hidden="true" ></i> Imprimir</a></div>
+       <div class="panel-body" align="left">
+             <div class = "col-md-2 pull-left">
+               <br>
+               <br>
+               <%= image_tag(@egresso.foto, width: "170px", height: "210px", style: "position: relative; bottom: 15px;") if  @egresso.foto? %>
+              </div>
+             
+            <div class="col-md-10 pull-right nomes">
+              <h3><%= @egresso.nome_completo %></h3>
+            </div>
+            <br><br><br>
+            <%if  not(@egresso.nome_social.nil?)%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>Nome Social:</strong>  <%= @egresso.nome_social %>
+            </div>
+            <%end%>
+            <br>            
+            <div class="col-md-10 pull-right nomes">
+              <strong>CPF:</strong> <%= @egresso.cpf %>
+            </div>
+            <br>
+            <div class="col-md-10 pull-right nomes">
+              <strong> Idade: </strong> <%= age(@egresso.data_nasc) if @egresso.data_nasc?%> anos
+            </div>
+            <br><br>
+            <%if  not(@egresso.tel_res.nil?)&&not(@egresso.tel_res == "(__) ____-____")&&not(@egresso.tel_res == "")%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>Telefone Residencial: </strong> <%= @egresso.tel_res %>
+            </div>
+            <br>
+            <% end %>
+            <%if  not(@egresso.tel_com.nil?)&&not(@egresso.tel_com == "(__) _____-____")&&not(@egresso.tel_com == "")%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>Telefone Comercial:</strong>  <%= @egresso.tel_com %>
+            </div>
+            <br>
+            <%end%>
+            <%if  not(@egresso.tel_cel.nil?)&&not(@egresso.tel_cel == "(__) _____-____")&&not(@egresso.tel_cel == "")%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>Telefone Celular:</strong>  <%= @egresso.tel_cel %>
+            </div>
+            <%end%>
+            <br>
+            <%if  not(@egresso.num_zap.nil?)&&not(@egresso.num_zap == "(__) _____-____")&&not(@egresso.num_zap == "")%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>WhatsApp:</strong>  <%= @egresso.num_zap %>
+            </div>
+            <%end%>
+            <br>
+            <div class="col-md-10 pull-right nomes">
+              <strong>E-mail de Contato: </strong>  <%= @egresso.email_princ %>
+            </div>
+            <br>
+            <div class="col-md-12 pull-left">
+              <hr>
+              <h2>Formação Acadêmica</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  FormAcad.where(:egresso_id => @egresso.id).order(data_fim: :DESC).each do |form_acad| %>
+                  <p>
+                    <strong> Instituição:  </strong>  <%= form_acad.inst_ofert %>
+                    <%if (form_acad.habilitado == false)%> 
+                      <%="(informado pelo sistema)"%><br>
+                      <%if (Titulacao.where(id: Curso.where(nome: form_acad.nome_curso).map(&:titulacao_id)).present?)%>
+                        <strong> Nome do Curso: </strong> <%= Titulacao.where(id: Curso.where(nome: form_acad.nome_curso).first.titulacao_id).first.titulo%><br>
+                        <%if form_acad.nome_curso == 'Licenciatura em Ciências da Natureza'&& form_acad.semestre_letivo.present?%> &nbsp&nbsp&nbsp&nbsp
+                        <%if form_acad.semestre_letivo.include?('Bio')%>
+                            <strong> Habilitação:  </strong>  <%= "Licenciado(a) em Biologia" %><br>
+                          <%else%>
+                            <%if form_acad.semestre_letivo.include?('Quím')%>
+                              <strong> Habilitação:  </strong>  <%= "Licenciado(a) em Química" %><br>
+                            <%else%>
+                              <%if form_acad.semestre_letivo.include?('Fís')%>
+                                <strong> Habilitação:  </strong>  <%= "Licenciado(a) em Física" %><br>
+                              <%end%>
+                            <%end%>
+                          <%end%>
+                        <%end%>
+                      <%else%>
+                        <strong> Nome do Curso: </strong> <%= form_acad.nome_curso %><br>
+                      <%end%>
+                      <strong> Formado(a) em:</strong>      <%= form_acad.data_fim %><br>
+                      <%else%><br> <!--Se habilitado true-->
+                        <strong> Nome do Curso: </strong> <%= form_acad.nome_curso %><br>
+                        <strong> Data de Início:</strong>      <%= form_acad.data_ini %><br>
+                        <% if not(form_acad.data_fim.nil?) %> 
+                          <% if form_acad.try(:data_fim) <= Time.now %>           
+                            <strong> Data de Conclusão: </strong> <%= form_acad.data_fim %><br>
+                          <%else%>
+                            <strong> Previsão de Conclusão:</strong> <%= form_acad.data_fim %><br>
+                          <%end%>                
+                          <%else%>
+                            <strong> Data de Conclusão: </strong>
+                        <%end%>
+                      <%end%>
+                      <br>
+                    </p>
+                  <%end%> <!--end loop form_acad -->
+                </div>
+              </div>
+            </div>
+            <%if  FormCompl.where(:egresso_id => @egresso.id).present? %>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Formação Complementar</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  FormCompl.where(:egresso_id => @egresso.id).order(data_fim: :DESC).each do |form_compl| %>
+                    <strong> Instituição:  </strong>  <%= form_compl.inst %><br>
+                    <strong> Nome do Curso: </strong>        <%= form_compl.nome_curso %><br>
+                    <strong> Carga Horária:</strong>      <%= form_compl.carga %>h<br>
+                    <strong> Data de Conclusão: </strong>   <%= form_compl.data_fim %><br>
+                    <br>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <%end%>
+            <% if  ExpProf.where(:egresso_id => @egresso.id).present? %>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Experiência Profissional</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  ExpProf.where(:egresso_id => @egresso.id).order(data_fim: :DESC).each do |exp_prof| %>
+                    <strong> Empresa:  </strong>  <%= exp_prof.empresa %><br>
+                    <strong> Cargo: </strong>        <%= exp_prof.cargo%><br>
+                    <strong> Data de Início:</strong>      <%= exp_prof.data_ini %><br>
+                    <strong> Data de Término: </strong>   <%= exp_prof.data_fim %><br>
+                    <br>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <%end%>
+            <%if   AtivAut.where(:egresso_id => @egresso.id).present? %>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Atividades Autônomas</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  AtivAut.where(:egresso_id => @egresso.id).order(data_fim: :DESC).each do |ativ_aut| %>
+                    <strong> Local da Prestação de Serviço:  </strong>  <%= ativ_aut.prest_serv %><br>
+                    <strong> Função Exercida: </strong>        <%= ativ_aut.funcao%><br>
+                    <strong> Data de Início:</strong>      <%= ativ_aut.data_ini %><br>
+                    <strong> Data de Término: </strong>   <%= ativ_aut.data_fim %><br> 
+                    <br>
+                  <%end%>
+                 </div>
+              </div>
+            </div>
+            <%end%>
+            <% if  Idioma.where(:egresso_id => @egresso.id).present?%>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Idiomas</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  Idioma.where(:egresso_id => @egresso.id).each do |idioma| %>
+                    <strong> Descrição:  </strong>  <%= idioma.descricao %><br>
+                    <strong> Nível de Conhecimento: </strong> <%= $idioma[idioma.valor.to_i-1]%><br>
+                    <br>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <%end%>
+            <% if Compet.where(:egresso_id => @egresso.id).present?%>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Competências Adicionais</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  Compet.where(:egresso_id => @egresso.id).each do |compet| %>
+                    <strong> Descrição:  </strong>  <%= compet.descricao %><br>
+                    <strong> Nível de Conhecimento: </strong> <%= compet.valor%><br>
+                    <br>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <%end%>
+          </div>
+   <div class="form-group col-md-12">
+    <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', :back, class: 'btn btn-danger btn3d'  %>
+    </div>
+  </div>
+</div>
+
+<% else %>
+
+<div class="container">
+  <div class="panel">
+    <div class="panel-heading"><strong> Currículo </strong><%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%><a href=<%="/egressos/mostrar.pdf?egresso_id="+params[:egresso_id].to_s%> class="btn btn-success"><i class="fa fa-print" aria-hidden="true" ></i> Imprimir</a></div>
+       <div class="panel-body" align="left">
+             <div class = "col-md-2 pull-left">
+               <br>
+               <br>
+               <%= image_tag(@egresso.foto, width: "170px", height: "210px", style: "position: relative; bottom: 15px;") if  @egresso.foto %>
+              </div>
+             
+           <div class="col-md-10 pull-right nomes">
+              <h3><%= @egresso.nome_completo %></h3>
+            </div>
+            <br><br><br>
+            <%if  not(@egresso.nome_social.nil?)&&not(@egresso.nome_social == "")%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>Nome Social:</strong>  <%= @egresso.nome_social %>
+            </div>
+            <br>      
+            <%end%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>CPF:</strong> <%= @egresso.cpf %>
+            </div>
+            <br>
+            <div class="col-md-10 pull-right nomes">
+              <strong> Idade: </strong> <%= age(@egresso.data_nasc) if @egresso.data_nasc?%> anos
+            </div>
+            <br><br>
+            <%if  not(@egresso.tel_res.nil?)&&not(@egresso.tel_res == "(__) ____-____")&&not(@egresso.tel_res == "")%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>Telefone Residencial: </strong> <%= @egresso.tel_res %>
+            </div>
+            <br>
+            <% end %>
+            <%if  not(@egresso.tel_com.nil?)&&not(@egresso.tel_com == "(__) _____-____")&&not(@egresso.tel_com == "")%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>Telefone Comercial:</strong>  <%= @egresso.tel_com %>
+            </div>
+            <br>
+            <%end%>
+            <%if  not(@egresso.tel_cel.nil?)&&not(@egresso.tel_cel == "(__) _____-____")&&not(@egresso.tel_cel == "")%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>Telefone Celular:</strong>  <%= @egresso.tel_cel %>
+            </div>
+            <%end%>
+            <br>
+            <%if  not(@egresso.num_zap.nil?)&&not(@egresso.num_zap == "(__) _____-____")&&not(@egresso.num_zap == "")%>
+            <div class="col-md-10 pull-right nomes">
+              <strong>WhatsApp:</strong>  <%= @egresso.num_zap %>
+            </div>
+            <%end%>
+            <br>
+            <div class="col-md-10 pull-right nomes">
+              <strong>E-mail de Contato: </strong>  <%= @egresso.email_princ %>
+            </div>
+            <br>
+            <div class="col-md-12 pull-left">
+              <hr>
+              <h2>Formação Acadêmica</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  FormAcad.where(:egresso_id => @egresso.id).order(data_fim: :DESC).each do |form_acad| %>
+                  <p>
+                    <strong> Instituição:  </strong>  <%= form_acad.inst_ofert %>
+                    <%if (form_acad.habilitado == false)%> 
+                      <%="(informado pelo sistema)"%><br>
+                      <%if (Titulacao.where(id: Curso.where(nome: form_acad.nome_curso).map(&:titulacao_id)).present?)%>
+                        <strong> Nome do Curso: </strong> <%= Titulacao.where(id: Curso.where(nome: form_acad.nome_curso).first.titulacao_id).first.titulo%><br>
+                        <%if form_acad.nome_curso == 'Licenciatura em Ciências da Natureza'&& form_acad.semestre_letivo.present?%> &nbsp&nbsp&nbsp&nbsp
+                        <%if form_acad.semestre_letivo.include?('Bio')%>
+                            <strong> Habilitação:  </strong>  <%= "Licenciado(a) em Biologia" %><br>
+                          <%else%>
+                            <%if form_acad.semestre_letivo.include?('Quím')%>
+                              <strong> Habilitação:  </strong>  <%= "Licenciado(a) em Química" %><br>
+                            <%else%>
+                              <%if form_acad.semestre_letivo.include?('Fís')%>
+                                <strong> Habilitação:  </strong>  <%= "Licenciado(a) em Física" %><br>
+                              <%end%>
+                            <%end%>
+                          <%end%>
+                        <%end%>
+                      <%else%>
+                        <strong> Nome do Curso: </strong> <%= form_acad.nome_curso %><br>
+                      <%end%>
+                      <strong> Formado(a) em:</strong>      <%= form_acad.data_fim %><br>
+                      <%else%><br> <!--Se habilitado true-->
+                        <strong> Nome do Curso: </strong> <%= form_acad.nome_curso %><br>
+                        <strong> Data de Início:</strong>      <%= form_acad.data_ini %><br>
+                        <% if not(form_acad.data_fim.nil?) %> 
+                          <% if form_acad.try(:data_fim) <= Time.now %>           
+                            <strong> Data de Conclusão: </strong> <%= form_acad.data_fim %><br>
+                          <%else%>
+                            <strong> Previsão de Conclusão:</strong> <%= form_acad.data_fim %><br>
+                          <%end%>                
+                          <%else%>
+                            <strong> Previsão de Conclusão: </strong>
+                        <%end%>
+                      <%end%>
+                      <br>
+                    </p>
+                  <%end%> <!--end loop form_acad -->
+                </div>
+              </div>
+            </div>
+
+            <%if FormCompl.where(:egresso_id => @egresso.id).present? %>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Formação Complementar</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  FormCompl.where(:egresso_id => @egresso.id).order(data_fim: :DESC).each do |form_compl| %>
+                  <p>
+                    <strong> Instituição:  </strong>  <%= form_compl.inst %><br>
+                    <strong> Nome do Curso: </strong>        <%= form_compl.nome_curso %><br>
+                    <strong> Carga Horária:</strong>      <%= form_compl.carga %>h<br>
+                    <strong> Data de Conclusão: </strong>   <%= form_compl.data_fim %><br>
+                    <br>
+                  </p>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <%end%>
+            <% if  ExpProf.where(:egresso_id => @egresso.id).present? %>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Experiência Profissional</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  ExpProf.where(:egresso_id => @egresso.id).order(data_fim: :DESC).each do |exp_prof| %>
+                  <p>
+                    <strong> Empresa:  </strong>  <%= exp_prof.empresa %><br>
+                    <strong> Cargo: </strong>        <%= exp_prof.cargo%><br>
+                    <strong> Data de Início:</strong>      <%= exp_prof.data_ini %><br>
+                    <strong> Data de Término: </strong>   <%= exp_prof.data_fim %><br>
+                    <br>
+                  </p>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <%end%>
+            <%if   AtivAut.where(:egresso_id => @egresso.id).present? %>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Atividades Autônomas</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  AtivAut.where(:egresso_id => @egresso.id).order(data_fim: :DESC).each do |ativ_aut| %>
+                    <strong> Local da Prestação de Serviço:  </strong>  <%= ativ_aut.prest_serv %><br>
+                    <strong> Função Exercida: </strong>        <%= ativ_aut.funcao%><br>
+                    <strong> Data de Início:</strong>      <%= ativ_aut.data_ini %><br>
+                    <strong> Data de Término: </strong>   <%= ativ_aut.data_fim %><br> 
+                    <br>
+                  <%end%>
+                 </div>
+              </div>
+            </div>
+            <%end%>
+            <% if  Idioma.where(:egresso_id => @egresso.id).present?%>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Idiomas</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  Idioma.where(:egresso_id => @egresso.id).each do |idioma| %>
+                  <p>
+                    <strong> Descrição:  </strong>  <%= idioma.descricao %><br>
+                    <strong> Nível de Conhecimento: </strong> <%= $idioma[idioma.valor.to_i-1]%><br>
+                    <br>
+                  </p>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <%end%>
+            <% if  Compet.where(:egresso_id => @egresso.id).present?%>
+            <div class="col-md-12 pull-left" style="width: 100%">
+              <hr>
+              <h2>Competências Adicionais</h2><br>
+              <div class="col-md-10" align="left">
+                <div class="col-md-12 pull-left">
+                  <%  Compet.where(:egresso_id => @egresso.id).each do |compet| %>
+                  <p>
+                    <strong> Descrição:  </strong>  <%= compet.descricao %><br>
+                    <strong> Nível de Conhecimento: </strong> <%= compet.valor%><br>
+                    <br>
+                  </p>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <%end%>
+          </div>
+</div>
+
+   <div class="form-group col-md-12">
+    <div class="form-group col-md-12"> </div>
+  <div align="center">
+    <div class="btn-group icons">
+      <%= link_to 'Voltar', :back, class: 'btn btn-danger btn3d'  %>
+    </div>
+  </div>
+</div>
+
+<% end %>

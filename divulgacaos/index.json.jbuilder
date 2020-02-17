@@ -1,0 +1,1 @@
+json.array! @divulgacaos, partial: 'divulgacaos/divulgacao', as: :divulgacao

@@ -1,0 +1,22 @@
+
+<div class="panel collapse" id=collapse1> 
+<div class="panel-heading"><strong> Consulta  </strong></div>
+<div class="panel-body">
+
+<%= form_tag( egressos_path, method: "get",  :class => "form-inline") do %>
+<div class="col-md-4">
+	<%= label_tag(:pnome_completo, "Nome do Egresso:") %> <br>
+    <%= text_field_tag( :pnome_completo, @pnome_completo, size: 40, class: 'form-control') %>
+</div>
+<div class="col-md-2">
+	<%= label_tag(:perrados, "Situação: ") %> <br>
+    <%= select_tag :perrados, options_for_select([['Ambos','A'],['Com Problemas Cadastrais','C'],['Sem Problemas Cadastrais','S']],selected:@perrados), class: 'form-control'%>
+</div>  	
+    <div class="col-md-2">
+    	<br>
+    <%= submit_tag "Filtrar" , class: "btn btn-success" ,style: 'position: relative; bottom: -5px;' %>   
+	</div>
+<% end %>
+
+</div>
+</div>

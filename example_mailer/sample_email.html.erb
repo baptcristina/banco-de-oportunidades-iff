@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá Administrador!</h1>
+    <p>
+		Recebemos no dia <%= Time.now %> às <%=Time.now.to_formatted_s(:time)%> a seguinte solicitação pelo nosso Fale Conosco:
+	<br><br>
+	<div class="container" id="boxshadow">
+		Assunto: <strong><%= @fale_conosco.assunto %></strong>
+	<br><br>
+		Mensagem:
+				<strong><%= @fale_conosco.mensagem %></strong>
+	<br><br>
+	 <% if @usuario.try(:empresa).present?  %>
+	   Favor responder ao usuário <%= @usuario.empresa.razao_social%> pelo e-mail <%= @fale_conosco.email %> .<br><br>
+   <% else %>
+   <% if @usuario.try(:egresso).present? %>
+           Favor responder ao usuário <%= @usuario.egresso.nome_completo%> pelo e-mail <%= @fale_conosco.email %> .<br><br>
+    <%else%>
+       <% if @usuario.try(:email) == "agencia@iff.edu.br" %>
+            Favor responder à Agência de Oportunidades pelo e-mail <%= @fale_conosco.email %> .<br><br>
+       <%else%>
+         <% if  @usuario.try(:email) == "registro@iff.edu.br" %>
+            Favor responder ao Registro Acadêmico pelo e-mail <%= @fale_conosco.email %> .<br><br>
+        <% else %>
+          <% if  @usuario.try(:email) == "admin@iff.edu.br" %>
+            Favor responder a vc mesmo pelo e-mail <%= @fale_conosco.email %> .<br><br>
+        <%else%>
+        Favor responder ao e-mail <%= @fale_conosco.email %> .<br><br>
+        <%end%>
+    <% end %>
+    <% end %>
+    <% end %>
+    <%end%>
+   	</div>
+
+	<br><br>
+		<%= 'Banco de Oportunidades do IFF Campos Centro' %>
+
+    </p>
+  </body>
+</html>

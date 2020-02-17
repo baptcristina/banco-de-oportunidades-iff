@@ -1,0 +1,93 @@
+<br>
+<div class="container col-md-12" >
+
+<% if current_admin.try(:super?) %>
+<%= render 'formbusca'%>
+<%end%>
+
+<div class="panel " >
+
+ <span>
+  <%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%>
+  <%if not(current_admin.try(:super))%> <%= link_to' Novo Egresso', new_egresso_path(@egresso, egresso_id: params[:egresso_id]),:method => :post , :class =>"btn btn-success btn3d fa fa-graduation-cap pull-right"%> 
+  <%end%>
+  <a class="btn btn-sm btn-success btn3d pull-right" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
+    <i class="fa fa-search" title="Pesquisar"></i>
+  </a> 
+ </span>
+
+<div class="panel-heading"><strong> Dados Pessoais </strong></div>
+
+<div class="panel-body">
+
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover fixed">
+   <col width="150px" />
+    <col width="250px" />
+    <col width="190px" />
+       <col width="250px" />
+       <col width="170px" />
+ 
+  <thead>
+    <tr>
+      <th>CPF</th>
+      <th>Nome Completo</th>
+      <th>Nome Social</th>
+      <th>E-mail Principal</th>
+      <th>Telefone Celular</th>
+
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @egressos.each do |egresso| %>
+    <% if egresso.email_princ.present?%>
+      <tr>
+        <td><%= egresso.cpf %></td>
+        <td><%= egresso.nome_completo %></td>
+        <td><%= egresso.nome_social %></td>
+        <td><%= egresso.email_princ %></td>
+        <td><%= egresso.tel_cel %></td>
+        <td align="center" colspan="4">
+        <div class="btn-group icons">
+        <% if current_admin.try(:super?) %>  
+          <%= link_to '', mostrar_egressos_path(@egresso, :egresso_id =>egresso.id), title: "Visualizar", :class =>"btn btn-default fa fa-eye btn3d" %>  
+        <%end%>    
+        <%= link_to '',  edit_egresso_path(egresso), title: "Editar", :class =>"btn btn-success fa fa-pencil btn3d" %>
+        <%= link_to '', egresso, method: :delete, data: { confirm: 'Deseja realmente deletar?' }, title: "Deletar", :class =>"btn btn-danger fa fa-trash btn3d" %>
+        </div>
+        </td>
+      </tr>
+      <%else%>
+         <tr style="color:  red;" title="Verificar CPF ou email principal ou data de colação de grau">
+        <td><%= egresso.cpf %></td>
+        <td><%= egresso.nome_completo %></td>
+        <td><%= egresso.nome_social %></td>
+        <td><%= egresso.email_princ %></td>
+        <td><%= egresso.tel_cel %></td>
+        <td align="center" colspan="4">
+        <div class="btn-group icons">
+        <% if current_admin.try(:super?) %>  
+                <%= link_to '',  mostrar_egressos_path(@egresso, :egresso_id =>egresso.id), title: "Visualizar", :class =>"btn btn-default fa fa-eye btn3d" %>  
+        <%end%>
+          <%= link_to '',  relatorios_path(egresso_id: egresso.id), title: "Visualizar Relatório", :class =>"btn btn-primary fa fa-search btn3d" %>   
+          <%= link_to '',  edit_egresso_path(egresso), title: "Editar", :class =>"btn btn-success fa fa-pencil btn3d" %>
+          <%= link_to '', egresso, method: :delete, data: { confirm: 'Deseja realmente deletar?' }, title: "Deletar", :class =>"btn btn-danger fa fa-trash btn3d" %>
+
+          </div>
+         </td>
+      </tr>
+      <%end%>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+
+<div align="center">
+<%= will_paginate @egressos, renderer: BootstrapPagination::Rails, color: "green", next_label: ">>", previous_label: "<<"   %>
+</div>
+</div>
+</div>
+

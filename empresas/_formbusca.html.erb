@@ -1,0 +1,21 @@
+<div class="panel collapse" id=collapse1> 
+<div class="panel-heading"><strong> Consulta  </strong></div>
+<div class="panel-body">
+
+<%= form_tag( empresas_path, method: "get",  :class => "form-inline") do %>
+<div class="col-md-4">
+  	<%= label_tag(:prazao_social, "Razão Social:") %>
+    <%= text_field_tag( :prazao_social, @prazaosocial, size: 40, class: 'form-control') %>
+</div>
+<div class="col-md-2">
+  	<%= label_tag(:perrados, "Situação:") %>
+    <%= select_tag :perrados, options_for_select([['Ambos','A'],['Com Problemas Cadastrais','C'],['Sem Problemas Cadastrais','S']],selected:@perrados), class: 'form-control' %>
+</div>
+<div class="col-md-2">
+    <%= submit_tag "Filtrar" , class: "btn btn-success",style: 'position: relative; bottom: -27px;' %>   
+</div>
+
+<% end %>
+
+</div>
+</div>

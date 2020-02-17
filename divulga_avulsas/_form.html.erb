@@ -1,0 +1,17 @@
+<%= form_for(divulga_avulsa) do |f| %>
+  <% if divulga_avulsa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(divulga_avulsa.errors.count, "error") %> prohibited this divulga_avulsa from being saved:</h2>
+
+      <ul>
+      <% divulga_avulsa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

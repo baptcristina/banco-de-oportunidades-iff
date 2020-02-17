@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+<!-- msg padrao para empresa e egresso -->
+    <h2>Olá, <%=@egresso.nome_completo%>!</h2>
+    <p>
+    Você acaba de receber uma oportunidade para o cargo de <strong><%=@oportunidade.cargo%></strong>. Esta oportunidade é válida até o dia <strong><%=@oportunidade.fim_oferta%></strong>. Caso esteja interessado, acesse o Banco de Oportunidades e não deixe de participar do processo de seleção.
+    <br><br>
+
+        Atenciosamente,<br><br>
+
+        Banco de Oportunidades do IFF Campus Campos Centro <br>
+        http://bancodeoportunidades.centro.iff.edu.br
+<br>
+
+        <img src="http://bancodeoportunidades.centro.iff.edu.br/assets/BdO%20rotacionado-7a95d46355dfd003e7bcc3fb9b5a971e15af762c32726bea5453db430dca3820.png" width='50px' height='50px'>
+
+    </p>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<br>
+<% if current_admin.try(:super?) %>
+<div class="container col-md-12" >
+<div class="col-md-2"></div>
+<div class="col-md-8" >
+<%= render 'formbusca'%>
+</div>
+</div>
+<%end%>
+
+<div class="container col-md-12" >
+<div class="col-md-2"></div>
+<div class="col-md-8" >
+
+<div class="panel " >
+ <span><%= link_to '', home_path,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%><%= link_to' Nova Programação', new_divulgacao_path(@divulgacao, divulgacao_id: params[:divulgacao_id]) ,:method => :post , :class =>"btn btn-success btn3d fa fa-briefcase pull-right"%> <% if current_admin.try(:super?) %><a class="btn btn-sm btn-success btn3d pull-right" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
+    <i class="fa fa-search" title="Pesquisar"></i>
+  </a><%end%>  </span>
+<div class="panel-heading"><strong>Programação de Publicações</strong></div>
+
+<div class="panel-body">
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover">
+
+  <col width="120px" />
+  <col width="470px" />
+  <col width="120px" />
+
+  <thead>
+    <tr>
+      <th style="text-align: center">Data de Publicação</th>
+      <th>Descrição</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @divulgacaos.each do |divulgacao| %>
+      <tr>
+        <td align="center"> <%= divulgacao.created_at %></td>
+        <td><%= divulgacao.descricao %></td>
+        <td align="center" colspan="3">
+
+        <div class="btn-group icons"> 
+        <%= link_to '',  edit_divulgacao_path(divulgacao), title: "Editar", :class =>"btn btn-success fa fa-pencil btn3d" %>
+        <%= link_to '', divulgacao, method: :delete, data: { confirm: 'Deseja realmente deletar?' }, title: "Deletar", :class =>"btn btn-danger fa fa-trash btn3d" %>
+        <%= link_to '', clonar_divulgacaos_path(divulgacao_id: divulgacao.id), title: 'Duplicar Publicação', class: 'btn btn-info fa fa-clone btn3d'%>
+         </div>
+         </td>
+      </tr>
+        <%end%>
+    </tbody>
+
+  </table>
+<div align="center">
+<%= will_paginate @divulgacaos, renderer: BootstrapPagination::Rails, color: "green", next_label: ">>", previous_label: "<<"   %>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+

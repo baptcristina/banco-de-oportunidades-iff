@@ -1,0 +1,156 @@
+<br>
+ <%= form_for(divulgacao) do |f| %>
+  <% if divulgacao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(divulgacao.errors.count, "error") %> prohibited this divulgacao from being saved:</h2>
+      <ul>
+      <% divulgacao.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+        
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="col-md-12">
+<div class="container">
+<div class="panel"><%= link_to '', :back,:title => 'Fechar', :method => :get , :class =>"btn btn-danger btn3d fa fa-times pull-right"%> 
+<div class="panel-heading"><strong>Programação da Publicação do mês <%if divulgacao.created_at %><%= divulgacao.created_at.strftime( '%m/%Y')%> <%else%>  <%=Time.now.strftime( '%m/%Y')%><%end%></strong></div>
+<div class="panel-body">
+<div class="table-responsive">
+
+<form class="form-horizontal ">
+
+  <div class="form-group col-md-12">
+    <div class="form-group col-md-12">   
+      <%= f.label :descricao,"Descrição Geral" %>
+      <%= f.text_field :descricao,  class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group col-md-12">
+    <div class="form-group col-md-6"> 
+      <p><strong><h3>Eventos</h3></strong></p>
+      <div class="panel" style="   box-shadow: 10px 10px gray;height: 400px;">
+        <div class="panel-heading" ><strong><%= f.label :Visualização %></strong></div> 
+        <div class="panel-body" >
+          <div style="text-align: center;" class="form-group col-md-12">           
+            <label><%= f.radio_button :preview,'1',id: 'preview1', value: '1', onchange: 'Preview(this)', checked: true%> 1  
+            <%= f.radio_button :preview,'2',id: 'preview2', value: '2', onchange: 'Preview(this)'%> 2 
+            <%= f.radio_button :preview,'3',id: 'preview3', value: '3', onchange: 'Preview(this)'%> 3 
+            <%= f.radio_button :preview,'4',id: 'preview4', value: '4', onchange: 'Preview(this)'%> 4 </label>
+           </div> 
+           <br>
+           <div align="center">
+              <%= image_tag(f.object.foto1_url, width: "300px", height: "200px", id:"div_foto1", style: 'display: block;') if f.object.foto1? %>
+              <%= image_tag('login1.png', width: "300px", height: "200px", id:"div_foto1", style: 'display: block;') if not f.object.foto1? %>
+           </div>
+           <div align="center">
+           <%= image_tag(f.object.foto2_url, width: "300px", height: "200px", id:"div_foto2", style: 'display: none;') if f.object.foto2? %>
+              <%= image_tag('login1.png', width: "300px", height: "200px", id:"div_foto2", style: 'display: none;') if not f.object.foto2? %>
+           </div >
+           <div align="center">
+           <%= image_tag(f.object.foto3_url, width: "300px", height: "200px", id:"div_foto3", style: 'display: none;')   if f.object.foto3? %>
+              <%= image_tag('login1.png', width: "300px", height: "200px", id:"div_foto3", style: 'display: none;') if not f.object.foto3? %>
+           </div>
+           <div align="center">
+           <%= image_tag(f.object.foto4_url, width: "300px", height: "200px", id:"div_foto4", style: 'display: none;')    if f.object.foto4? %>
+              <%= image_tag('login1.png', width: "300px", height: "200px", id:"div_foto4", style: 'display: none;') if not f.object.foto4? %>
+           </div>
+        </div>
+      </div>
+      <div class="col-md-12 " align="left" >
+        Imagem nº 1
+        <input class="file_input" id="divulgacao_foto1" name="divulgacao[foto1]" type="file" onchange="readURL_foto1(this);" accept="image/png,image/gif,image/jpeg" style="width: 400px;!important" /> </br>
+        <%=f.label :link1, 'Link da Imagem 1'%>
+        <%= f.text_field :link1, class: 'form-control'%><br>
+        Imagem nº 2
+        <input class="file_input" id="divulgacao_foto2" name="divulgacao[foto2]" type="file" onchange="readURL_foto2(this);" accept="image/png,image/gif,image/jpeg" style="width: 400px;!important" /> </br>
+        <%=f.label :link2, 'Link da Imagem 2'%>
+        <%= f.text_field :link2, class: 'form-control'%><br>
+        Imagem nº 3
+        <input class="file_input" id="divulgacao_foto3" name="divulgacao[foto3]" type="file" onchange="readURL_foto3(this);" accept="image/png,image/gif,image/jpeg" style="width: 400px;!important" /> </br>
+        <%=f.label :link3, 'Link da Imagem 3'%>
+        <%= f.text_field :link3, class: 'form-control'%><br>
+        Imagem nº 4
+        <input class="file_input" id="divulgacao_foto4" name="divulgacao[foto4]" type="file" onchange="readURL_foto4(this);" accept="image/png,image/gif,image/jpeg" style="width: 400px;!important" /> </br>
+        <%=f.label :link4, 'Link da Imagem 4'%>
+        <%= f.text_field :link4, class: 'form-control'%><br>
+      
+    <div  style="display: none;">
+        <div class="col-md-12 pull-right" >  <%= f.file_field :foto1 ,accept: 'image/png,image/gif,image/jpeg', :style => "width: 400px;!important" %> 
+        </div>
+        <div class="col-md-12 pull-right">  <%= f.file_field :foto2 ,accept: 'image/png,image/gif,image/jpeg', :style => "width: 400px;!important" %> 
+        </div>
+        <div class="col-md-12 pull-right">  <%= f.file_field :foto3 ,accept: 'image/png,image/gif,image/jpeg', :style => "width: 400px;!important" %> 
+        </div>
+        <div class="col-md-12 pull-right">  <%= f.file_field :foto4,accept: 'image/png,image/gif,image/jpeg', :style => "width: 400px;!important" %> 
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <p><strong><h3>Vídeo</h3></strong></p>
+      <div class="form-group col-md-12">  
+      <br>
+        <%= f.label :video, "Link do Vídeo" , style: 'color: white;'%>
+        <%= f.text_field :video , class: 'form-control', onfocusout: 'mudaVideo(this)' %>
+      </div>
+      <script type="text/javascript">
+        function mudaVideo(elem){
+          document.getElementById('preview_video').src = elem.value;
+        }
+      </script>
+      
+      <div class="panel" style="   box-shadow: 10px 10px gray;height: 400px;">
+        <div class="panel-heading" ><strong><%= f.label :Visualização %></strong></div> 
+        <div class="panel-body" >
+          <embed id="preview_video" src="">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+Lista de Informações
+<div class= "col-md-6">
+<div class="col-md-12 noticias">
+  Lista de Notícias
+  <div>
+  <%= f.fields_for :infos do |info|%>
+  <% render 'info_fields', f: info%>
+  <%end%>
+  <%= link_to_add_association '<span class="fa fa-plus "style="color: green;"></span><span style="color: black;">&nbsp&nbspNova Notícia</span>'.html_safe, f, :infos%>
+  </div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="col-md-12 informacoes">
+  
+  <div>
+  <%= f.fields_for :feeds do |feed|%>
+  <% render 'feed_fields', f: feed%>
+  <%end%>
+  <%= link_to_add_association '<span class="fa fa-plus "style="color: green;"></span><span style="color: black;">&nbsp&nbspNova Informação</span>'.html_safe, f, :feeds%>
+  </div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+  <div class="form-group col-md-12">
+    <div align="center">
+      <div class="btn-group icons">
+        <%= link_to 'Voltar', divulgacaos_path, class: 'btn  btn-danger btn3d'  %>
+        <%= button_tag(type: 'submit', class: "btn btn-success btn3d") do %> Salvar <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<% end %>
+

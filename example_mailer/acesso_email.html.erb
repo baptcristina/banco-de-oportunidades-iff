@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+<!-- msg padrao para empresa e egresso -->
+    <h2>Olá, <%=@egresso.nome_completo%>!</h2>
+    <p>
+    Você acaba de receber acesso ao Banco de Oportunidades!
+    </p>
+    <p> Esta plataforma foi criada pensando em <em>VOCÊ</em> que estudou em nosso <i>campus</i>.
+    </p>
+    <p>
+    O Banco de Oportunidades é um local exclusivo de relacionamento entre egressos e empresas da região.  Mantenha seu currículo atualizado para aumentar suas chances de se conectar com as oportunidades do mundo do trabalho. Faça seu primeiro login!
+    </p>
+    <p>
+      Dados de acesso:
+    </p>
+    <p>
+      login: <%= User.where(egresso_id: @egresso.id).first.email%>
+    </p>
+    <p>
+      senha: 123456
+    </p>
+    <p style="font-size: 9px">
+     * É recomendável que ao realizar o primeiro acesso, você modifique sua senha. Caso já tenha recebido este e-mail favor desconsiderar esta mensagem.
+    </p>
+    <p>
+    <br><br>
+
+        Atenciosamente,<br><br>
+
+        Banco de Oportunidades do IFF Campus Campos Centro <br>
+        http://bancodeoportunidades.centro.iff.edu.br
+<br>
+
+        <img src="http://bancodeoportunidades.centro.iff.edu.br/assets/BdO%20rotacionado-7a95d46355dfd003e7bcc3fb9b5a971e15af762c32726bea5453db430dca3820.png" width='50px' height='50px'>
+
+    </p>
+
+  </body>
+</html>
