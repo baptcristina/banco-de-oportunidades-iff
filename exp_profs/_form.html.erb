@@ -92,7 +92,7 @@
 
   <div class="form-group col-md-10">
     <%= f.label :ramo_ativ_id, "Ramo de Atividade / Tabela CNAE" %>
-   <%= f.select :ramo_ativ_id, options_for_select(RamoAtiv.all.map{|m| [m.ramo_ativ,m.id]},f.object.ramo_ativ_id),{ prompt: 'Selecione um ramo'}, class: 'selectpicker form-control'%>
+   <%= f.select :ramo_ativ_id, options_for_select(RamoAtiv.all.map{|m| [m.ramo_ativ,m.id]}.sort,f.object.ramo_ativ_id),{ prompt: 'Selecione um ramo'}, class: 'selectpicker form-control'%>
   <br></div>
 
      <div class="form-group col-md-4">
